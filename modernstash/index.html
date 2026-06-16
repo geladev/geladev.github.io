@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ModernStash Config Editor</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>ModernStash Config Editor</h1>
+      <p>Редактор JSON-конфига для мода Gelik ModernStash</p>
+    </div>
+    <div class="actions">
+      <a class="button" href="../index.html">Главная</a>
+      <button class="button classnames-button" type="button" data-open-classnames>Настройки класснеймов</button>
+      <button id="togglePreviewBtn" class="button" type="button">Скрыть JSON preview</button>
+      <button id="resetConfigBtn" class="button danger" type="button">Очистить конфиг</button>
+      <label class="button file-button">
+        Загрузить JSON
+        <input id="fileInput" type="file" accept=".json,application/json">
+      </label>
+      <button id="downloadBtn" class="button primary" type="button">Скачать config.json</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h2>Stash группы</h2>
+        <button id="addGroupBtn" class="icon-button" type="button" title="Добавить группу">+</button>
+      </div>
+      <div id="groupList" class="group-list"></div>
+    </aside>
+
+    <section class="editor">
+      <form id="groupForm">
+        <div class="section-title">
+          <div>
+            <h2 id="groupTitle">Stash группа</h2>
+            <p id="groupSubtitle"></p>
+          </div>
+          <div class="section-actions">
+            <button id="duplicateGroupBtn" class="small-button" type="button" data-tooltip-key="duplicateGroup">Дублировать</button>
+            <button id="deleteGroupBtn" class="danger" type="button" data-tooltip-key="deleteGroup">Удалить группу</button>
+          </div>
+        </div>
+
+        <section class="panel block-panel">
+          <div class="panel-head">
+            <h3>Параметры группы</h3>
+          </div>
+          <div class="grid">
+            <label>G_StashItemsMinMax min<input id="itemsMin" type="number" min="0" step="1" data-tooltip-key="itemsMin"></label>
+            <label>G_StashItemsMinMax max<input id="itemsMax" type="number" min="0" step="1" data-tooltip-key="itemsMax"></label>
+            <label>G_OpenActionType<input id="openActionType" type="number" step="1" data-tooltip-key="openActionType"></label>
+            <label>G_StashSpawnType<input id="spawnType" type="number" step="1" data-tooltip-key="spawnType"></label>
+            <label>G_StashSpawnChance<input id="spawnChance" type="number" min="0" max="100" step="1" data-tooltip-key="spawnChance"></label>
+            <label>G_StashOpenable<input id="openable" type="number" step="1" data-tooltip-key="openable"></label>
+            <label>G_StashRemoveOnOpen<input id="removeOnOpen" type="number" min="-1" step="1" data-tooltip-key="removeOnOpen"></label>
+          </div>
+        </section>
+
+        <section class="panel block-panel">
+          <div class="panel-head">
+            <h3>G_StashClassname</h3>
+            <button id="addClassBtn" class="small-button" type="button">Добавить</button>
+          </div>
+          <div id="classList" class="stack"></div>
+        </section>
+
+        <section class="panel block-panel">
+          <div class="panel-head">
+            <h3>G_OpenableWith</h3>
+            <button id="addToolBtn" class="small-button" type="button">Добавить</button>
+          </div>
+          <div id="toolList" class="stack"></div>
+        </section>
+
+        <section class="panel block-panel">
+          <div class="panel-head">
+            <h3>G_Items</h3>
+            <button id="addItemBtn" class="small-button" type="button">Добавить предмет</button>
+          </div>
+          <div id="itemList" class="item-list"></div>
+        </section>
+      </form>
+    </section>
+
+    <aside class="preview">
+      <div class="preview-head">
+        <h2>JSON preview</h2>
+        <button id="copyBtn" class="small-button" type="button">Копировать</button>
+      </div>
+      <pre id="jsonPreview"></pre>
+      <div id="status" class="status">Готово</div>
+    </aside>
+  </main>
+
+  <datalist id="classnameOptions"></datalist>
+  <input id="classnamesInput" class="hidden" type="file" accept=".json,application/json">
+  <script src="../classnames-data.js"></script>
+  <script src="../classnames-manager.js"></script>
+  <script src="tooltips.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
