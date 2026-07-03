@@ -36,6 +36,10 @@ const tooltip = document.createElement("div");
 tooltip.className = "field-tooltip";
 document.body.append(tooltip);
 
+function i18n(key, variables) {
+  return window.gelikI18n?.t(key, variables) || key;
+}
+
 function createGroup() {
   return {
     G_GiftClassname: "Gelik_RandomGift_New",
@@ -55,7 +59,7 @@ function createItem() {
 
 function normalizeConfig(input) {
   if (!input || !Array.isArray(input.G_RandomGifts)) {
-    throw new Error("В JSON должен быть массив G_RandomGifts.");
+    throw new Error(i18n("randomgiftsInvalidJson"));
   }
 
   input.G_RandomGifts.forEach((group) => {
@@ -100,7 +104,7 @@ function renderGroups() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `group-card${index === selectedGroupIndex ? " active" : ""}`;
-    button.innerHTML = `<strong>${escapeHtml(group.G_GiftClassname || "Без classname")}</strong><span>${group.G_Items.length} loot</span>`;
+    button.innerHTML = `<strong>${escapeHtml(group.G_GiftClassname || i18n("noClassname"))}</strong><span>${group.G_Items.length} loot</span>`;
     button.addEventListener("click", () => {
       selectedGroupIndex = index;
       render();
@@ -115,8 +119,8 @@ function renderEditor() {
   groupForm.classList.toggle("hidden", !group);
   if (!group) return;
 
-  groupTitle.textContent = group.G_GiftClassname || "Gift группа";
-  groupSubtitle.textContent = `Группа ${selectedGroupIndex + 1} из ${config.G_RandomGifts.length}`;
+  groupTitle.textContent = group.G_GiftClassname || i18n("giftGroup");
+  groupSubtitle.textContent = i18n("groupOf", { current: selectedGroupIndex + 1, total: config.G_RandomGifts.length });
   giftClassname.value = group.G_GiftClassname;
   itemsMin.value = group.G_GiftItemsMinMax[0];
   itemsMax.value = group.G_GiftItemsMinMax[1];
@@ -132,19 +136,19 @@ function renderItems(group) {
     card.className = "item-card";
     card.innerHTML = `
       <div class="item-head">
-        <h3>${escapeHtml(item.G_ClassName || `Предмет ${index + 1}`)}</h3>
-        <button class="remove" type="button" title="Удалить">×</button>
+        <h3>${escapeHtml(item.G_ClassName || i18n("itemNumber", { number: index + 1 }))}</h3>
+        <button class="remove" type="button" title="${i18n("delete")}">×</button>
       </div>
       <div class="item-settings">
         <section class="item-subblock">
-          <h4>Предмет</h4>
+          <h4>${i18n("item")}</h4>
           <div class="item-grid two-cols">
             <label>G_ClassName<input data-key="G_ClassName" type="text" value="${escapeAttribute(item.G_ClassName)}" data-classname-field data-tooltip-key="itemClassname"></label>
             <label>G_Chance<input data-key="G_Chance" type="number" min="0" max="100" step="1" value="${escapeAttribute(item.G_Chance)}" data-tooltip-key="itemChance"></label>
           </div>
         </section>
         <section class="item-subblock">
-          <h4>Количество и состояние</h4>
+          <h4>${i18n("quantityHealth")}</h4>
           <div class="item-grid">
             <label>G_QuantityMinMax min<input data-pair="G_QuantityMinMax" data-index="0" type="number" step="1" value="${escapeAttribute(item.G_QuantityMinMax[0])}" data-tooltip-key="itemQuantityMin"></label>
             <label>G_QuantityMinMax max<input data-pair="G_QuantityMinMax" data-index="1" type="number" step="1" value="${escapeAttribute(item.G_QuantityMinMax[1])}" data-tooltip-key="itemQuantityMax"></label>
@@ -203,12 +207,12 @@ function cleanItem(item) {
 
 function createHealthSelect(pairName, index, value, tooltipKey) {
   const options = [
-    [-1, "-1 - Не задавать (будет нетронутым)"],
-    [0, "0 - нетронутое"],
-    [1, "1 - поношенное"],
-    [2, "2 - поврежденное"],
-    [3, "3 - сильное поврежденное"],
-    [4, "4 - уничтоженное"]
+    [-1, i18n("healthUnset")],
+    [0, i18n("healthPristine")],
+    [1, i18n("healthWorn")],
+    [2, i18n("healthDamaged")],
+    [3, i18n("healthBadlyDamaged")],
+    [4, i18n("healthRuined")]
   ];
   return `<select data-pair="${pairName}" data-index="${index}" data-tooltip-key="${tooltipKey}">${options.map(([optionValue, label]) => `<option value="${optionValue}"${Number(value) === optionValue ? " selected" : ""}>${label}</option>`).join("")}</select>`;
 }
@@ -257,7 +261,7 @@ function saveEditorState() {
 function restorePreviewState() {
   const collapsed = localStorage.getItem(PREVIEW_COLLAPSED_STORAGE_KEY) === "1";
   document.body.classList.toggle("preview-collapsed", collapsed);
-  togglePreviewBtn.textContent = collapsed ? "Показать JSON preview" : "Скрыть JSON preview";
+  togglePreviewBtn.textContent = collapsed ? i18n("showPreview") : i18n("hidePreview");
 }
 
 function resetConfigToDefault(shouldRender = true) {
@@ -267,7 +271,7 @@ function resetConfigToDefault(shouldRender = true) {
   if (shouldRender) {
     render();
     saveEditorState();
-    setStatus("Конфиг очищен");
+    setStatus(i18n("configCleared"));
   }
 }
 
@@ -314,19 +318,25 @@ function applyClassnameAutocomplete(root = document) {
 
 function applyTooltips(root = document) {
   root.querySelectorAll("[data-tooltip-key]").forEach((element) => {
-    const text = window.RANDOMGIFTS_TOOLTIPS?.[element.dataset.tooltipKey];
-    if (!text || element.dataset.tooltipBound === "true") return;
+    if (!getTooltipText(window.RANDOMGIFTS_TOOLTIPS?.[element.dataset.tooltipKey]) || element.dataset.tooltipBound === "true") return;
 
     element.dataset.tooltipBound = "true";
-    element.addEventListener("mouseenter", (event) => showTooltip(element, text, event));
+    element.addEventListener("mouseenter", (event) => showTooltip(element, getTooltipText(window.RANDOMGIFTS_TOOLTIPS?.[element.dataset.tooltipKey]), event));
     element.addEventListener("mousemove", (event) => moveTooltip(event));
     element.addEventListener("mouseleave", hideTooltip);
-    element.addEventListener("focus", (event) => showTooltip(element, text, event));
+    element.addEventListener("focus", (event) => showTooltip(element, getTooltipText(window.RANDOMGIFTS_TOOLTIPS?.[element.dataset.tooltipKey]), event));
     element.addEventListener("blur", hideTooltip);
   });
 }
 
+function getTooltipText(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  return value[window.gelikI18n?.getLanguage?.() || "ru"] || value.ru || "";
+}
+
 function showTooltip(element, text, event) {
+  if (!text) return;
   tooltip.textContent = text;
   tooltip.classList.add("visible");
   element.classList.add("tooltip-active");
@@ -371,7 +381,7 @@ async function loadBaseClassnames() {
     if (!response.ok) return;
     baseClassnameOptions = parseClassnameText(await response.text());
     renderClassnameOptions();
-    setStatus(`Базовые classnames: ${baseClassnameOptions.length}`);
+    setStatus(i18n("baseClassnames", { count: baseClassnameOptions.length }));
   } catch {
   }
 }
@@ -380,7 +390,7 @@ function setStatus(message) {
   status.textContent = message;
   window.clearTimeout(setStatus.timer);
   setStatus.timer = window.setTimeout(() => {
-    status.textContent = "Готово";
+    status.textContent = i18n("ready");
   }, 2500);
 }
 
@@ -427,7 +437,7 @@ fileInput.addEventListener("change", async () => {
     config = normalizeConfig(JSON.parse(await file.text()));
     selectedGroupIndex = config.G_RandomGifts.length ? 0 : -1;
     render();
-    setStatus(`Загружен ${file.name}`);
+    setStatus(i18n("loadedFile", { name: file.name }));
   } catch (error) {
     setStatus(error.message);
   } finally {
@@ -443,7 +453,7 @@ classnamesInput.addEventListener("change", async () => {
     writeStoredClassnames(mergeClassnameOptions(userClassnameOptions, readStoredClassnames()));
     userClassnameOptions = readStoredClassnames();
     renderClassnameOptions();
-    setStatus(`Загружено classnames: ${classnameOptions.length}`);
+    setStatus(i18n("loadedClassnames", { count: classnameOptions.length }));
   } catch (error) {
     setStatus(error.message);
   } finally {
@@ -461,22 +471,22 @@ downloadBtn.addEventListener("click", () => {
   link.click();
   link.remove();
   URL.revokeObjectURL(url);
-  setStatus("config.json скачан");
+  setStatus(i18n("configDownloaded"));
 });
 
 copyBtn.addEventListener("click", async () => {
   await navigator.clipboard.writeText(jsonPreview.textContent);
-  setStatus("JSON скопирован");
+  setStatus(i18n("jsonCopied"));
 });
 
 togglePreviewBtn.addEventListener("click", () => {
   document.body.classList.toggle("preview-collapsed");
-  togglePreviewBtn.textContent = document.body.classList.contains("preview-collapsed") ? "Показать JSON preview" : "Скрыть JSON preview";
+  togglePreviewBtn.textContent = document.body.classList.contains("preview-collapsed") ? i18n("showPreview") : i18n("hidePreview");
   saveEditorState();
 });
 
 resetConfigBtn.addEventListener("click", () => {
-  const confirmed = window.confirm("Точно очистить конфиг? Вся текущая информация в редакторе будет удалена, а конфиг станет начальным.");
+  const confirmed = window.confirm(i18n("resetConfirm"));
   if (!confirmed) return;
   resetConfigToDefault();
 });
@@ -511,6 +521,12 @@ window.addEventListener("gelik-classnames-updated", () => {
   userClassnameOptions = readStoredClassnames();
   baseClassnameOptions = userClassnameOptions;
   renderClassnameOptions();
+});
+
+window.addEventListener("gelik-language-changed", () => {
+  restorePreviewState();
+  render();
+  window.gelikI18n?.apply();
 });
 
 loadEditorState();

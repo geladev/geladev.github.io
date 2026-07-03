@@ -10,6 +10,10 @@ const DATA_CATEGORIES = ["CfgVehicles", "CfgWeapons", "CfgMagazines", "CfgAmmo",
 const CLASSNAME_SCOPES = ["scope1", "scope2"];
 let vanillaClassnameData = normalizeClassnameData(window.VANILLA_CLASSNAMES || null);
 
+function i18n(key, variables) {
+  return window.gelikI18n?.t(key, variables) || key;
+}
+
 function defaultClassnameData() {
   return Object.fromEntries(DATA_CATEGORIES.map((category) => [
     category,
@@ -150,27 +154,27 @@ function injectClassnameModal() {
     <section class="modal-panel">
       <div class="modal-head">
         <div>
-          <h2>Настройка класснеймов</h2>
-          <p>Загрузите JSON со scope1/scope2 и настройте, какие класснеймы показывать в автозаполнении.</p>
+          <h2 data-i18n="classnamesTitle">${i18n("classnamesTitle")}</h2>
+          <p data-i18n="classnamesIntro">${i18n("classnamesIntro")}</p>
         </div>
         <button class="icon-button" type="button" data-close-classnames>×</button>
       </div>
       <div class="classnames-help">
-        <p>Категория Vanilla содержит класснеймы из стандартного <code>classnames.json</code> в корне сайта. Ее можно отключить, чтобы видеть только свои загруженные класснеймы.</p>
-        <p>Получить список всех класснеймов с вашего сервера можно используя данный мод: <a href="${getRootPrefix()}Gelik_GetClassnames_SERVER.pbo" download>Gelik_GetClassnames_SERVER.pbo</a>.</p>
-        <p>Просто добавьте ПБО на серверную часть, запустите сервер и в папке <code>Profiles/Gelik_Mods/gelik_classnames.json</code> будет список класснеймов, данный файл затем загрузите сюда.</p>
-        <p><em>*Класснеймы будут записаны всех объектов сервера со scope=1 и scope=2.</em></p>
+        <p><span data-i18n="classnamesHelpVanilla">${i18n("classnamesHelpVanilla")}</span></p>
+        <p><span data-i18n="classnamesHelpDownload">${i18n("classnamesHelpDownload")}</span> <a href="${getRootPrefix()}Gelik_GetClassnames_SERVER.pbo" download>Gelik_GetClassnames_SERVER.pbo</a>.</p>
+        <p><span data-i18n="classnamesHelpInstall">${i18n("classnamesHelpInstall")}</span></p>
+        <p><em data-i18n="classnamesHelpScope">${i18n("classnamesHelpScope")}</em></p>
       </div>
       <div class="modal-tools">
         <label class="button file-button">
-          Загрузить JSON класснеймов
+          <span data-i18n="uploadClassnamesJson">${i18n("uploadClassnamesJson")}</span>
           <input id="classnamesJsonInput" type="file" accept=".json,application/json">
         </label>
         <div id="classnamesModalStatus" class="home-status"></div>
       </div>
       <div class="filter-grid">
         <section>
-          <h3>Категории</h3>
+          <h3 data-i18n="categories">${i18n("categories")}</h3>
           <div id="classnameCategoryFilters" class="check-list"></div>
         </section>
         <section>
@@ -179,7 +183,7 @@ function injectClassnameModal() {
         </section>
       </div>
       <section class="classnames-list-wrap">
-        <h3>Список класснеймов</h3>
+        <h3 data-i18n="classnamesList">${i18n("classnamesList")}</h3>
         <div id="classnamesList" class="classnames-list"></div>
       </section>
     </section>
@@ -198,8 +202,8 @@ function renderClassnameManager() {
   const scopeFilters = document.querySelector("#classnameScopeFilters");
   const list = document.querySelector("#classnamesList");
 
-  if (status) status.textContent = `Показано: ${filtered.length}. Всего доступно: ${total}.`;
-  if (summary) summary.textContent = filtered.length ? `Сейчас доступно класснеймов: ${filtered.length}` : "JSON класснеймов пока не загружен.";
+  if (status) status.textContent = i18n("shownAvailable", { shown: filtered.length, total });
+  if (summary) summary.textContent = filtered.length ? i18n("commonClassnamesAvailable", { count: filtered.length }) : i18n("classnamesNotLoaded");
 
   categoryFilters.innerHTML = CLASSNAME_CATEGORIES.map((category) => `
     <label class="check-row">
@@ -217,7 +221,8 @@ function renderClassnameManager() {
 
   list.innerHTML = filtered.length
     ? filtered.map((classname) => `<div>${escapeHtmlForClassnames(classname)}</div>`).join("")
-    : "<div>Список пуст.</div>";
+    : `<div>${i18n("emptyList")}</div>`;
+  window.gelikI18n?.apply(document.querySelector("#classnamesModal"));
 }
 
 function bindClassnameManager() {
@@ -305,3 +310,7 @@ function escapeHtmlForClassnames(value) {
 }
 
 bindClassnameManager();
+
+window.addEventListener("gelik-language-changed", () => {
+  renderClassnameManager();
+});
