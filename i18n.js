@@ -11,6 +11,7 @@ const GELIK_TRANSLATIONS = {
     editors: "Редакторы",
     modernstashCardText: "Редактор JSON-конфига для Gelik ModernStash.",
     randomgiftsCardText: "Редактор JSON-конфига для Gelik RandomGifts.",
+    airdropCardText: "Редактор JSON-конфига для Airdrop + Cardrop.",
     home: "Главная",
     hidePreview: "Скрыть JSON preview",
     showPreview: "Показать JSON preview",
@@ -66,7 +67,21 @@ const GELIK_TRANSLATIONS = {
     shownAvailable: "Показано: {shown}. Всего доступно: {total}.",
     commonClassnamesAvailable: "Сейчас доступно класснеймов: {count}",
     classnamesNotLoaded: "JSON класснеймов пока не загружен.",
-    emptyList: "Список пуст."
+    emptyList: "Список пуст.",
+    airdropSections: "Разделы",
+    airdropGeneral: "Общие настройки",
+    airdropSettings: "AirdropSettings",
+    airdropDropVars: "DropVars",
+    airdropNotifications: "Notifications",
+    airdropMarker: "Marker",
+    airdropLocations: "DropLocations",
+    airdropDropPresets: "DropPresets",
+    airdropCarPresets: "CarPresets",
+    airdropEditorHint: "Комментарии из example.json вынесены в подсказки при наведении.",
+    airdropRecords: "Записей: {count}",
+    airdropFields: "Полей: {count}",
+    airdropInvalidJson: "JSON должен быть объектом Airdrop/Cardrop конфига.",
+    airdropNoCarPreset: "Отсутствие (пустота)"
   },
   en: {
     language: "Language",
@@ -78,6 +93,7 @@ const GELIK_TRANSLATIONS = {
     editors: "Editors",
     modernstashCardText: "JSON config editor for Gelik ModernStash.",
     randomgiftsCardText: "JSON config editor for Gelik RandomGifts.",
+    airdropCardText: "JSON config editor for Airdrop + Cardrop.",
     home: "Home",
     hidePreview: "Hide JSON preview",
     showPreview: "Show JSON preview",
@@ -133,7 +149,21 @@ const GELIK_TRANSLATIONS = {
     shownAvailable: "Shown: {shown}. Total available: {total}.",
     commonClassnamesAvailable: "Currently available classnames: {count}",
     classnamesNotLoaded: "Classnames JSON is not loaded yet.",
-    emptyList: "The list is empty."
+    emptyList: "The list is empty.",
+    airdropSections: "Sections",
+    airdropGeneral: "General settings",
+    airdropSettings: "AirdropSettings",
+    airdropDropVars: "DropVars",
+    airdropNotifications: "Notifications",
+    airdropMarker: "Marker",
+    airdropLocations: "DropLocations",
+    airdropDropPresets: "DropPresets",
+    airdropCarPresets: "CarPresets",
+    airdropEditorHint: "Comments from example.json are available as hover tooltips.",
+    airdropRecords: "Records: {count}",
+    airdropFields: "Fields: {count}",
+    airdropInvalidJson: "JSON must be an Airdrop/Cardrop config object.",
+    airdropNoCarPreset: "None (empty)"
   }
 };
 

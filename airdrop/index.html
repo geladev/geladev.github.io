@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Airdrop + Cardrop Config Editor</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Airdrop + Cardrop Config Editor</h1>
+      <p data-i18n="airdropCardText">Редактор JSON-конфига для Airdrop + Cardrop.</p>
+    </div>
+    <div class="actions">
+      <a class="button" href="../index.html" data-i18n="home">Главная</a>
+      <button class="button classnames-button" type="button" data-open-classnames data-i18n="classnamesSettingsEditor">Настройки класснеймов</button>
+      <button id="togglePreviewBtn" class="button" type="button" data-i18n="hidePreview">Скрыть JSON preview</button>
+      <button id="resetConfigBtn" class="button danger" type="button" data-i18n="clearConfig">Очистить конфиг</button>
+      <label class="button file-button">
+        <span data-i18n="uploadJson">Загрузить JSON</span>
+        <input id="fileInput" type="file" accept=".json,application/json">
+      </label>
+      <button id="downloadBtn" class="button primary" type="button" data-i18n="downloadConfig">Скачать config.json</button>
+    </div>
+  </header>
+
+  <main class="layout airdrop-layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h2 data-i18n="airdropSections">Разделы</h2>
+      </div>
+      <div id="sectionList" class="group-list"></div>
+    </aside>
+
+    <section class="editor">
+      <form id="editorForm">
+        <div class="section-title">
+          <div>
+            <h2 id="sectionTitle"></h2>
+            <p id="sectionSubtitle"></p>
+          </div>
+        </div>
+        <div id="editorContent"></div>
+      </form>
+    </section>
+
+    <aside class="preview">
+      <div class="preview-head">
+        <h2>JSON preview</h2>
+        <button id="copyBtn" class="small-button" type="button" data-i18n="copy">Копировать</button>
+      </div>
+      <pre id="jsonPreview"></pre>
+      <div id="status" class="status" data-i18n="ready">Готово</div>
+    </aside>
+  </main>
+
+  <datalist id="classnameOptions"></datalist>
+  <datalist id="dropPresetOptions"></datalist>
+  <datalist id="dropLocationOptions"></datalist>
+  <datalist id="carPresetOptions"></datalist>
+  <script src="../classnames-data.js"></script>
+  <script src="../i18n.js"></script>
+  <script src="../classnames-manager.js"></script>
+  <script src="tooltips.js"></script>
+  <script src="airdrop.js"></script>
+</body>
+</html>

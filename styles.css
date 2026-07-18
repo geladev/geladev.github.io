@@ -465,7 +465,8 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
   width: 100%;
   min-height: 36px;
   padding: 7px 9px;
@@ -473,6 +474,11 @@ select {
   border-radius: 6px;
   background: #fff;
   color: var(--text);
+}
+
+textarea {
+  resize: vertical;
+  line-height: 1.35;
 }
 
 [data-tooltip-key].tooltip-active {
@@ -518,6 +524,34 @@ select {
   margin-top: 16px;
 }
 
+.object-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.object-grid-wide {
+  grid-column: 1 / -1;
+}
+
+.health-pair,
+.quantity-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+
+.array-panel {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.compact-card {
+  margin-top: 10px;
+}
+
 .block-panel > .panel-head {
   padding-bottom: 10px;
   border-bottom: 1px solid var(--line);
@@ -550,6 +584,28 @@ select {
   color: var(--danger);
   cursor: pointer;
   font-size: 20px;
+}
+
+.item-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.collapse-button {
+  width: 38px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.item-card.collapsed .item-card-body {
+  display: none;
 }
 
 .item-card {
