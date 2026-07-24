@@ -523,15 +523,31 @@ function getDefaultArrayItem(path) {
     DropPresets: structuredClone(DEFAULT_CONFIG.AirdropSettings.DropPresets[0]),
     CarPresets: structuredClone(DEFAULT_CONFIG.AirdropSettings.CarPresets[0]),
     Cars: { Classname: "Offroad_02", Fuel: 0, Water: 0, Chance: 100, Attachments: [], Cargo: [] },
-    Items: structuredClone(DEFAULT_CONFIG.AirdropSettings.DropPresets[0].DirectSpawn[0].Items[0]),
+    Items: createAirdropItem(true),
     DirectSpawn: { Point: "spawn_cen", Items: [] },
     Positions: [0, 0, 0],
     ZombieList: "ZmbM_CitizenASkinny_Blue",
-    Attachments: structuredClone(DEFAULT_CONFIG.AirdropSettings.DropPresets[0].DirectSpawn[0].Items[0]),
-    Cargo: structuredClone(DEFAULT_CONFIG.AirdropSettings.DropPresets[0].DirectSpawn[0].Items[0]),
+    Attachments: createAirdropItem(false),
+    Cargo: createAirdropItem(false),
     NotifTime: 5
   };
   return structuredClone(templates[key] ?? "");
+}
+
+function createAirdropItem(includeTransform) {
+  const item = {
+    Classname: "NewItem",
+    QuantityMinMax: "-1",
+    HealthMinMax: "0|0",
+    Chance: 100,
+    Attachments: [],
+    Cargo: []
+  };
+  if (includeTransform) {
+    item.Orientation = "0.000000 0.000000 -0.000000";
+    item.Offset = "0.000000 0.000000 0.000000";
+  }
+  return item;
 }
 
 function normalizeConfig(input) {
@@ -541,7 +557,31 @@ function normalizeConfig(input) {
   if (!input.AirdropSettings || typeof input.AirdropSettings !== "object") {
     input.AirdropSettings = structuredClone(DEFAULT_CONFIG.AirdropSettings);
   }
-  return input;
+  return sanitizeAirdropConfig(input);
+}
+
+function sanitizeAirdropConfig(source) {
+  return sanitizeAirdropValue(structuredClone(source), []);
+}
+
+function sanitizeAirdropValue(value, path) {
+  if (Array.isArray(value)) {
+    return value.map((item, index) => sanitizeAirdropValue(item, [...path, index]));
+  }
+  if (value && typeof value === "object") {
+    if (isAttachmentOrCargoPath(path)) {
+      delete value.Orientation;
+      delete value.Offset;
+    }
+    Object.keys(value).forEach((key) => {
+      value[key] = sanitizeAirdropValue(value[key], [...path, key]);
+    });
+  }
+  return value;
+}
+
+function isAttachmentOrCargoPath(path) {
+  return path.includes("Attachments") || path.includes("Cargo");
 }
 
 function stripJsonComments(text) {
@@ -585,7 +625,7 @@ function stringifyConfig(value) {
 }
 
 function renderPreview() {
-  jsonPreview.textContent = stringifyConfig(config);
+  jsonPreview.textContent = stringifyConfig(sanitizeAirdropConfig(config));
   saveEditorState();
 }
 
@@ -600,7 +640,7 @@ function loadEditorState() {
 
 function saveEditorState() {
   if (isRestoringState) return;
-  localStorage.setItem(AIRDROP_CONFIG_STORAGE_KEY, JSON.stringify(config));
+  localStorage.setItem(AIRDROP_CONFIG_STORAGE_KEY, JSON.stringify(sanitizeAirdropConfig(config)));
   localStorage.setItem(AIRDROP_PREVIEW_COLLAPSED_STORAGE_KEY, document.body.classList.contains("preview-collapsed") ? "1" : "0");
 }
 
@@ -927,7 +967,7 @@ fileInput.addEventListener("change", async () => {
 });
 
 downloadBtn.addEventListener("click", () => {
-  const blob = new Blob([stringifyConfig(config)], { type: "application/json" });
+  const blob = new Blob([stringifyConfig(sanitizeAirdropConfig(config))], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
