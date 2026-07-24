@@ -317,7 +317,7 @@ function renderPrimitive(value, path, label = path[path.length - 1]) {
   if (long) {
     field.innerHTML = `${escapeHtml(fieldName)}<textarea rows="3" data-path="${pathAttr}"${tooltipAttr}${classAttr}>${escapeHtml(value)}</textarea>`;
   } else {
-    field.innerHTML = `${escapeHtml(fieldName)}<input type="text" value="${escapeAttribute(value)}" data-path="${pathAttr}"${tooltipAttr}${classAttr}${listAttr}>`;
+    field.innerHTML = `${escapeHtml(fieldName)}<input type="text" value="${escapeAttribute(value)}" data-previous-value="${escapeAttribute(value)}" data-path="${pathAttr}"${tooltipAttr}${classAttr}${listAttr}>`;
   }
   return field;
 }
@@ -852,7 +852,11 @@ editorContent.addEventListener("input", (event) => {
   let value = event.target.value;
   if (event.target.type === "number") value = Number(value);
   if (event.target.type === "checkbox") value = event.target.checked;
+  const oldValue = getPreviousInputValue(event.target, path);
   setValue(path, value);
+  propagateLinkedNameChange(path, oldValue, value);
+  setPreviousInputValue(event.target, value);
+  updateNearestCardTitle(event.target, path);
   renderLocalOptions();
   renderSections();
   renderPreview();
@@ -912,12 +916,51 @@ editorContent.addEventListener("change", (event) => {
     let value = event.target.value;
     if (event.target.type === "number") value = Number(value);
     if (event.target.type === "checkbox") value = event.target.checked;
+    const oldValue = getPreviousInputValue(event.target, path);
     setValue(path, value);
+    propagateLinkedNameChange(path, oldValue, value);
+    setPreviousInputValue(event.target, value);
+    updateNearestCardTitle(event.target, path);
     renderLocalOptions();
     renderSections();
     renderPreview();
   }
 });
+
+function updateNearestCardTitle(element, path) {
+  const key = path[path.length - 1];
+  if (!["Name", "DropID", "Classname", "Point"].includes(key)) return;
+  const card = element.closest(".item-card");
+  const title = card?.querySelector(".item-head h3");
+  if (!title) return;
+  const parent = getValue(path.slice(0, -1));
+  const index = path[path.length - 2];
+  title.textContent = getItemTitle(parent, Number.isInteger(index) ? index : 0);
+}
+
+function getPreviousInputValue(element, path) {
+  if (element.hasAttribute("data-previous-value")) return element.dataset.previousValue;
+  return getValue(path);
+}
+
+function setPreviousInputValue(element, value) {
+  if (element.hasAttribute("data-previous-value")) {
+    element.dataset.previousValue = String(value);
+  }
+}
+
+function propagateLinkedNameChange(path, oldValue, newValue) {
+  if (!oldValue || !newValue || oldValue === newValue) return;
+  const key = path[path.length - 1];
+  const parentArray = path[path.length - 3];
+
+  if (key === "Name" && parentArray === "DropLocations") {
+    (config.AirdropSettings?.DropVars || []).forEach((dropVar) => {
+      if (!Array.isArray(dropVar.DropLocations)) return;
+      dropVar.DropLocations = dropVar.DropLocations.map((name) => name === oldValue ? newValue : name);
+    });
+  }
+}
 
 editorContent.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
