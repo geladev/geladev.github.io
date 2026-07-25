@@ -960,6 +960,14 @@ function propagateLinkedNameChange(path, oldValue, newValue) {
       dropVar.DropLocations = dropVar.DropLocations.map((name) => name === oldValue ? newValue : name);
     });
   }
+
+  if (key === "Name" && parentArray === "CarPresets") {
+    (config.AirdropSettings?.DropPresets || []).forEach((dropPreset) => {
+      if (dropPreset.CarPreset === oldValue) {
+        dropPreset.CarPreset = newValue;
+      }
+    });
+  }
 }
 
 editorContent.addEventListener("click", (event) => {
