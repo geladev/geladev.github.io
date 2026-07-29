@@ -136,8 +136,8 @@ window.AIRDROP_TOOLTIPS = {
     en: "Whether the drop is locked."
   },
   Tools: {
-    ru: "Инструменты открытия дропа. Слева classname инструмента, справа время открытия в секундах. Default есть всегда и означает открытие чем угодно.",
-    en: "Drop opening tools. Left side is the tool classname, right side is opening time in seconds. Default always exists and means any tool."
+    ru: "Инструменты открытия дропа. Слева classname инструмента, справа время открытия в секундах. Default - время открытия чем угодно.",
+    en: "Drop opening tools. Left side is the tool classname, right side is opening time in seconds. Default - opening time with anything."
   },
   TimeToRemove: {
     ru: "Через сколько секунд удалить дроп после спавна.",

@@ -324,7 +324,7 @@ function renderPrimitive(value, path, label = path[path.length - 1]) {
 
 function renderHealthMinMax(value, path, tooltipKey) {
   const field = document.createElement("div");
-  field.className = "health-pair";
+  field.className = "health-pair object-grid-wide";
   const [min, max] = parseHealthMinMax(value);
   const pathAttr = escapeAttribute(JSON.stringify(path));
   const tooltipAttr = tooltipKey ? ` data-tooltip-key="${tooltipKey}"` : "";
