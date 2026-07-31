@@ -1,4 +1,4 @@
-const AIRDROP_CONFIG_STORAGE_KEY = "airdrop_editor_config";
+﻿const AIRDROP_CONFIG_STORAGE_KEY = "airdrop_editor_config";
 const AIRDROP_SELECTED_SECTION_STORAGE_KEY = "airdrop_editor_section";
 const AIRDROP_PREVIEW_COLLAPSED_STORAGE_KEY = "airdrop_editor_preview_collapsed";
 const AIRDROP_COLLAPSED_CARDS_STORAGE_KEY = "airdrop_editor_collapsed_cards";
@@ -10,10 +10,10 @@ const DEFAULT_CONFIG = {
     DiscordWebhookURL: "",
     MinPlayersToStart: 0,
     MaxDropsPerRestart: 1,
-    TimeBetweenDrops: 60,
+    TimeBetweenDrops: 1,
     CloseEventsTime: 235,
     DropVars: [
-      { DropID: "AirDrop_car", Chance: 100, DropLocations: ["NWAF", "VMC"] }
+      { DropID: "AirDrop_car", Chance: 100, DropLocations: ["Северо-западный аэропорт"] }
     ],
     Notifications: {
       NotifTime: [30, 20, 10, 5],
@@ -37,8 +37,8 @@ const DEFAULT_CONFIG = {
     },
     DropLocations: [
       {
-        Name: "NWAF",
-        Positions: [[4628.32, 339.007, 10306.2]],
+        Name: "Северо-западный аэропорт",
+        Positions: [[4151.875977, 383.644928, 11746.880859]],
         ZombieCount: 15,
         ZombieList: ["ZmbM_CitizenASkinny_Blue", "ZmbM_CitizenASkinny_Grey"],
         ContaminatedArea: false
@@ -52,25 +52,65 @@ const DEFAULT_CONFIG = {
         AirHeight: 500,
         DropSpeed: 5,
         Locked: 1,
-        Tools: { Default: 30, Hands: 60, Crowbar: 6 },
+        Tools: {
+          Default: 30,
+          Crowbar: 6,
+          Screwdriver: 12
+        },
         TimeToRemove: 300,
         TimeToBoomOnOpen: 250,
         DropContainer: "Gelik_Container_Camo",
-        CarPreset: "",
+        CarPreset: "test",
         Attachments: [],
-        Cargo: [],
+        Cargo: [
+          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
+          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
+          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
+          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
+          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
+          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
+          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] }
+        ],
         DirectSpawn: [
           {
-            Point: "spawn_cen",
+            Point: "spawn_1",
             Items: [
               {
-                Classname: "Barrel_Blue",
-                Orientation: "0.000000 0.000000 -0.000000",
-                Offset: "1.800293 0.181213 -4.421875",
-                QuantityMinMax: "-1",
-                HealthMinMax: "0|0",
-                Chance: 100,
+                Classname: "Mag_AK74_30Rnd",
+                Orientation: "90 90 90",
+                Offset: "2 2 0",
+                QuantityMinMax: "5|25",
+                HealthMinMax: "1|3",
+                Chance: 0,
                 Attachments: [],
+                Cargo: []
+              },
+              {
+                Classname: "AK74",
+                Orientation: "90 90 90",
+                Offset: "2 2 0",
+                QuantityMinMax: "10|60",
+                HealthMinMax: "1|3",
+                Chance: 50,
+                Attachments: [],
+                Cargo: []
+              }
+            ]
+          },
+          {
+            Point: "spawn_2",
+            Items: [
+              {
+                Classname: "AK74",
+                Orientation: "0 0 0",
+                Offset: "-2 0 0",
+                QuantityMinMax: "10|60",
+                HealthMinMax: "1|3",
+                Chance: 50,
+                Attachments: [
+                  { Classname: "AK74_WoodBttstck", QuantityMinMax: "10|60", HealthMinMax: "1|3", Chance: 50, Attachments: [], Cargo: [] },
+                  { Classname: "Mag_AK74_30Rnd", QuantityMinMax: "5|25", HealthMinMax: "1|3", Chance: 50, Attachments: [], Cargo: [] }
+                ],
                 Cargo: []
               }
             ]
@@ -80,15 +120,34 @@ const DEFAULT_CONFIG = {
     ],
     CarPresets: [
       {
-        Name: "DefaultCarDrop",
+        Name: "test",
         Cars: [
           {
             Classname: "Offroad_02",
-            Fuel: 10,
+            Fuel: 0,
             Water: 50,
-            Chance: 100,
-            Attachments: [],
-            Cargo: []
+            Chance: 10,
+            Attachments: [
+              { Classname: "CarBattery", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "HeadlightH7", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "HeadlightH7", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Door_1_1", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Door_1_2", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Door_2_1", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Door_2_2", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Hood", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "Offroad_02_Trunk", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
+              { Classname: "GlowPlug", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] }
+            ],
+            Cargo: [
+              { Classname: "AK74_WoodBttstck", QuantityMinMax: "10|60", HealthMinMax: "1|3", Chance: 50, Attachments: [], Cargo: [] },
+              { Classname: "Mag_AK74_30Rnd", QuantityMinMax: "5|25", HealthMinMax: "1|3", Chance: 50, Attachments: [], Cargo: [] }
+            ]
           }
         ]
       }
@@ -241,7 +300,7 @@ function renderArray(array, path) {
       row.className = "row";
       row.innerHTML = `
         <label>${index}<input type="text" value="${escapeAttribute(formatPositionVector(item))}" data-position-path="${escapeAttribute(JSON.stringify(itemPath))}" data-tooltip-key="Positions"></label>
-        <button class="remove" type="button" title="${i18n("delete")}" data-action="delete" data-path="${escapeAttribute(JSON.stringify(itemPath))}">×</button>
+        <button class="remove" type="button" title="${i18n("delete")}" data-action="delete" data-path="${escapeAttribute(JSON.stringify(itemPath))}">&times;</button>
       `;
       list.append(row);
       return;
@@ -257,7 +316,7 @@ function renderArray(array, path) {
       } else {
         row.append(renderPrimitive(item, itemPath, String(index)));
       }
-      row.insertAdjacentHTML("beforeend", `<button class="remove" type="button" title="${i18n("delete")}" data-action="delete" data-path="${escapeAttribute(JSON.stringify(itemPath))}">×</button>`);
+      row.insertAdjacentHTML("beforeend", `<button class="remove" type="button" title="${i18n("delete")}" data-action="delete" data-path="${escapeAttribute(JSON.stringify(itemPath))}">&times;</button>`);
       list.append(row);
       return;
     }
@@ -270,8 +329,8 @@ function renderArray(array, path) {
       <div class="item-head">
         <h3>${escapeHtml(getItemTitle(item, index))}</h3>
         <div class="item-head-actions">
-          <button class="collapse-button" type="button" title="${collapsed ? "Развернуть" : "Свернуть"}" data-action="toggleCard" data-card-key="${escapeAttribute(cardKey)}">${collapsed ? "+" : "−"}</button>
-          <button class="remove" type="button" title="${i18n("delete")}" data-action="delete" data-path="${escapeAttribute(JSON.stringify(itemPath))}">×</button>
+          <button class="collapse-button" type="button" title="${collapsed ? "Expand" : "Collapse"}" data-action="toggleCard" data-card-key="${escapeAttribute(cardKey)}">${collapsed ? "+" : "&minus;"}</button>
+          <button class="remove" type="button" title="${i18n("delete")}" data-action="delete" data-path="${escapeAttribute(JSON.stringify(itemPath))}">&times;</button>
         </div>
       </div>
     `;
@@ -400,7 +459,7 @@ function renderTools(object, path) {
     row.innerHTML = `
       <input type="text" value="${escapeAttribute(key)}" data-tool-key="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}" data-tooltip-key="Tools" data-classname-field>
       <input type="number" step="any" value="${escapeAttribute(value)}" data-tool-time="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}" data-tooltip-key="Tools">
-      <button class="remove" type="button" title="${i18n("delete")}" data-action="deleteTool" data-tool-key="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}">×</button>
+      <button class="remove" type="button" title="${i18n("delete")}" data-action="deleteTool" data-tool-key="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}">&times;</button>
     `;
     list.append(row);
   });
@@ -1059,3 +1118,4 @@ renderClassnameOptions();
 render();
 isRestoringState = false;
 saveEditorState();
+
