@@ -837,16 +837,26 @@ function renderObject(object, path, onlyFields = null) {
 
 function renderArray(array, path) {
   const wrap = document.createElement("section");
-  wrap.className = "array-panel";
+  const arrayKey = getCardKey(path);
+  const collapsibleArray = isCollapsibleArray(path);
+  const arrayCollapsed = collapsibleArray && collapsedCards.has(arrayKey);
+  wrap.className = `array-panel${arrayCollapsed ? " collapsed" : ""}`;
+  const collapseControl = collapsibleArray ? `
+      <button class="collapse-button" type="button" title="${arrayCollapsed ? "Expand" : "Collapse"}" data-action="toggleCard" data-card-key="${escapeAttribute(arrayKey)}">${arrayCollapsed ? "+" : "&minus;"}</button>
+  ` : "";
   wrap.innerHTML = `
     <div class="panel-head">
       <h3>${escapeHtml(String(path[path.length - 1] || "Array"))}</h3>
-      <button class="small-button" type="button" data-action="add" data-path="${escapeAttribute(JSON.stringify(path))}">${i18n("add")}</button>
+      <div class="item-head-actions">
+        ${collapseControl}
+        <button class="small-button" type="button" data-action="add" data-path="${escapeAttribute(JSON.stringify(path))}">${i18n("add")}</button>
+      </div>
     </div>
     <div class="item-list"></div>
   `;
 
   const list = wrap.querySelector(".item-list");
+  if (arrayCollapsed) return wrap;
   array.forEach((item, index) => {
     const itemPath = [...path, index];
     if (isPositionVector(path, item)) {
@@ -878,7 +888,7 @@ function renderArray(array, path) {
     const card = document.createElement("div");
     const cardKey = getCardKey(itemPath);
     const collapsed = collapsedCards.has(cardKey);
-    const reorderable = isCargoOrAttachmentsArray(path);
+    const reorderable = isReorderableArray(path);
     const moveControls = reorderable ? `
           <button class="collapse-button" type="button" title="Duplicate" data-action="duplicate" data-path="${escapeAttribute(JSON.stringify(itemPath))}">D</button>
           <button class="collapse-button" type="button" title="Move up" data-action="moveUp" data-path="${escapeAttribute(JSON.stringify(itemPath))}"${index === 0 ? " disabled" : ""}>^</button>
@@ -1133,9 +1143,14 @@ function isDropVarLocationValue(path) {
     && typeof path[path.length - 1] === "number";
 }
 
-function isCargoOrAttachmentsArray(path) {
+function isReorderableArray(path) {
   const key = String(path[path.length - 1]);
-  return key === "Cargo" || key === "Attachments";
+  return ["Cargo", "Attachments", "DropVars", "DropLocations", "DropPresets", "CarPresets", "Cars", "DirectSpawn"].includes(key);
+}
+
+function isCollapsibleArray(path) {
+  const key = String(path[path.length - 1]);
+  return key === "Cargo" || key === "Attachments" || key === "DirectSpawn";
 }
 
 function createDropLocationSelect(value, path) {
