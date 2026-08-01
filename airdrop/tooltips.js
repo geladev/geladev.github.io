@@ -246,3 +246,37 @@ Object.assign(window.AIRDROP_TOOLTIPS, {
     en: "Tool damage after opening."
   }
 });
+
+Object.assign(window.AIRDROP_TOOLTIPS, {
+  ActionBrokenToolMessage: {
+    ru: "Уведомление когда у инструмента для открытия недостаточно ХП.",
+    en: "Notification shown when the opening tool does not have enough HP."
+  }
+});
+
+Object.assign(window.AIRDROP_TOOLTIPS, {
+  AttachmentsMinMaxMin: {
+    ru: "Минимальное количество аттачментов которые должно заспавнить.",
+    en: "Minimum number of attachments that should spawn."
+  },
+  AttachmentsMinMaxMax: {
+    ru: "Максимальное количество аттачментов которые должно заспавнить.",
+    en: "Maximum number of attachments that should spawn."
+  },
+  CargoMinMaxMin: {
+    ru: "Минимальное количество предметов в карго которые должно заспавнить.",
+    en: "Minimum number of cargo items that should spawn."
+  },
+  CargoMinMaxMax: {
+    ru: "Максимальное количество предметов в карго которые должно заспавнить.",
+    en: "Maximum number of cargo items that should spawn."
+  },
+  QuantityMinMaxMin: {
+    ru: "Минимальное значение количества предмета.",
+    en: "Minimum item quantity value."
+  },
+  QuantityMinMaxMax: {
+    ru: "Максимальное значение количества предмета.",
+    en: "Maximum item quantity value."
+  }
+});

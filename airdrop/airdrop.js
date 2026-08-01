@@ -37,6 +37,7 @@ const DEFAULT_CONFIG = {
       "InGameEventAbortMessage": "Слишком мало игроков, самолёт не вылетел",
       "InGameDropMessage": "Контейнер с автомобилем сброшен у %location%!",
       "InGameOpenMessage": "Открыли",
+      "ActionBrokenToolMessage": "Инструмент слишком повреждён",
       "DiscordNotifMessage": "CarDrop: Контейнер с автомобилем будет сброшен в районе %location% через %time% минут(ы).",
       "DiscordEventStartMessage": "Самолёт вылетел",
       "DiscordEventAbortMessage": "Слишком мало игроков, самолёт не вылетел",
@@ -88,24 +89,6 @@ const DEFAULT_CONFIG = {
         "Attachments": [],
         "Cargo": [
           {
-            "Classname": "Apple",
-            "QuantityMinMax": "-1",
-            "HealthMinMax": "0|0",
-            "Chance": 0,
-            "SpawnOnce": false,
-            "Attachments": [],
-            "Cargo": []
-          },
-          {
-            "Classname": "Apple",
-            "QuantityMinMax": "-1",
-            "HealthMinMax": "0|0",
-            "Chance": 20,
-            "SpawnOnce": true,
-            "Attachments": [],
-            "Cargo": []
-          },
-          {
             "Classname": "M4A1",
             "QuantityMinMax": "-1",
             "HealthMinMax": "0|0",
@@ -115,20 +98,15 @@ const DEFAULT_CONFIG = {
             "SpawnOnce": true,
             "Attachments": [
               {
-                "Classname": "Mag_STANAG_60Rnd",
-                "QuantityMinMax": "-1",
-                "HealthMinMax": "0|0",
-                "Chance": 100,
-                "Attachments": [],
-                "Cargo": []
-              },
-              {
                 "Classname": "M4_Suppressor",
                 "QuantityMinMax": "-1",
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "M4_OEBttstck_Black",
@@ -136,7 +114,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "M4_RISHndgrd_Black",
@@ -144,7 +125,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Gelik_Optic_Lascope_A2_AkRail",
@@ -152,7 +136,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Battery9V",
@@ -160,7 +147,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "TF_Harris_Bipod",
@@ -168,7 +158,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "UniversalLight",
@@ -176,7 +169,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               }
             ],
             "Cargo": []
@@ -198,7 +194,9 @@ const DEFAULT_CONFIG = {
                 "Chance": 100,
                 "SpawnOnce": true,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0"
               },
               {
                 "Classname": "M4_Suppressor",
@@ -207,7 +205,9 @@ const DEFAULT_CONFIG = {
                 "Chance": 100,
                 "SpawnOnce": false,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0"
               }
             ]
           },
@@ -228,7 +228,9 @@ const DEFAULT_CONFIG = {
                 "Chance": 100,
                 "SpawnOnce": true,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0"
               },
               {
                 "Classname": "M4_Suppressor",
@@ -237,7 +239,9 @@ const DEFAULT_CONFIG = {
                 "Chance": 100,
                 "SpawnOnce": false,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0"
               },
               {
                 "Classname": "M4A1",
@@ -249,20 +253,15 @@ const DEFAULT_CONFIG = {
                 "SpawnOnce": true,
                 "Attachments": [
                   {
-                    "Classname": "Mag_STANAG_60Rnd",
-                    "QuantityMinMax": "-1",
-                    "HealthMinMax": "0|0",
-                    "Chance": 100,
-                    "Attachments": [],
-                    "Cargo": []
-                  },
-                  {
                     "Classname": "M4_Suppressor",
                     "QuantityMinMax": "-1",
                     "HealthMinMax": "0|0",
                     "Chance": 100,
                     "Attachments": [],
-                    "Cargo": []
+                    "Cargo": [],
+                    "CargoMinMax": "0|0",
+                    "AttachmentsMinMax": "0|0",
+                    "SpawnOnce": true
                   },
                   {
                     "Classname": "M4_OEBttstck_Black",
@@ -270,7 +269,10 @@ const DEFAULT_CONFIG = {
                     "HealthMinMax": "0|0",
                     "Chance": 100,
                     "Attachments": [],
-                    "Cargo": []
+                    "Cargo": [],
+                    "CargoMinMax": "0|0",
+                    "AttachmentsMinMax": "0|0",
+                    "SpawnOnce": true
                   },
                   {
                     "Classname": "M4_RISHndgrd_Black",
@@ -278,7 +280,10 @@ const DEFAULT_CONFIG = {
                     "HealthMinMax": "0|0",
                     "Chance": 100,
                     "Attachments": [],
-                    "Cargo": []
+                    "Cargo": [],
+                    "CargoMinMax": "0|0",
+                    "AttachmentsMinMax": "0|0",
+                    "SpawnOnce": true
                   },
                   {
                     "Classname": "UniversalLight",
@@ -286,7 +291,10 @@ const DEFAULT_CONFIG = {
                     "HealthMinMax": "0|0",
                     "Chance": 100,
                     "Attachments": [],
-                    "Cargo": []
+                    "Cargo": [],
+                    "CargoMinMax": "0|0",
+                    "AttachmentsMinMax": "0|0",
+                    "SpawnOnce": true
                   }
                 ],
                 "Cargo": []
@@ -304,7 +312,7 @@ const DEFAULT_CONFIG = {
                 "Offset": "1.934082 0.177887 -4.209960",
                 "QuantityMinMax": "-1",
                 "HealthMinMax": "0|0",
-                "Chance": 30,
+                "Chance": 10,
                 "AttachmentsMinMax": "0|0",
                 "CargoMinMax": "1|2",
                 "Attachments": [],
@@ -319,12 +327,15 @@ const DEFAULT_CONFIG = {
                     "SpawnOnce": true,
                     "Attachments": [
                       {
-                        "Classname": "Mag_STANAG_60Rnd",
+                        "Classname": "Mag_STANAG_30Rnd",
                         "QuantityMinMax": "-1",
                         "HealthMinMax": "0|0",
                         "Chance": 100,
                         "Attachments": [],
-                        "Cargo": []
+                        "Cargo": [],
+                        "CargoMinMax": "0|0",
+                        "AttachmentsMinMax": "0|0",
+                        "SpawnOnce": true
                       },
                       {
                         "Classname": "M4_Suppressor",
@@ -332,7 +343,10 @@ const DEFAULT_CONFIG = {
                         "HealthMinMax": "0|0",
                         "Chance": 100,
                         "Attachments": [],
-                        "Cargo": []
+                        "Cargo": [],
+                        "CargoMinMax": "0|0",
+                        "AttachmentsMinMax": "0|0",
+                        "SpawnOnce": true
                       },
                       {
                         "Classname": "M4_OEBttstck_Black",
@@ -340,7 +354,10 @@ const DEFAULT_CONFIG = {
                         "HealthMinMax": "0|0",
                         "Chance": 100,
                         "Attachments": [],
-                        "Cargo": []
+                        "Cargo": [],
+                        "CargoMinMax": "0|0",
+                        "AttachmentsMinMax": "0|0",
+                        "SpawnOnce": true
                       },
                       {
                         "Classname": "M4_RISHndgrd_Black",
@@ -348,7 +365,10 @@ const DEFAULT_CONFIG = {
                         "HealthMinMax": "0|0",
                         "Chance": 100,
                         "Attachments": [],
-                        "Cargo": []
+                        "Cargo": [],
+                        "CargoMinMax": "0|0",
+                        "AttachmentsMinMax": "0|0",
+                        "SpawnOnce": true
                       },
                       {
                         "Classname": "UniversalLight",
@@ -362,10 +382,16 @@ const DEFAULT_CONFIG = {
                             "HealthMinMax": "0|0",
                             "Chance": 100,
                             "Attachments": [],
-                            "Cargo": []
+                            "Cargo": [],
+                            "CargoMinMax": "0|0",
+                            "AttachmentsMinMax": "0|0",
+                            "SpawnOnce": true
                           }
                         ],
-                        "Cargo": []
+                        "Cargo": [],
+                        "CargoMinMax": "0|0",
+                        "AttachmentsMinMax": "0|0",
+                        "SpawnOnce": true
                       }
                     ],
                     "Cargo": []
@@ -380,12 +406,15 @@ const DEFAULT_CONFIG = {
                     "SpawnOnce": false,
                     "Attachments": [
                       {
-                        "Classname": "Mag_STANAG_60Rnd",
+                        "Classname": "Mag_STANAG_30Rnd",
                         "QuantityMinMax": "-1",
                         "HealthMinMax": "0|0",
                         "Chance": 100,
                         "Attachments": [],
-                        "Cargo": []
+                        "Cargo": [],
+                        "CargoMinMax": "0|0",
+                        "AttachmentsMinMax": "0|0",
+                        "SpawnOnce": true
                       },
                       {
                         "Classname": "M4_Suppressor",
@@ -393,7 +422,10 @@ const DEFAULT_CONFIG = {
                         "HealthMinMax": "0|0",
                         "Chance": 100,
                         "Attachments": [],
-                        "Cargo": []
+                        "Cargo": [],
+                        "CargoMinMax": "0|0",
+                        "AttachmentsMinMax": "0|0",
+                        "SpawnOnce": true
                       },
                       {
                         "Classname": "UniversalLight",
@@ -407,10 +439,16 @@ const DEFAULT_CONFIG = {
                             "HealthMinMax": "0|0",
                             "Chance": 100,
                             "Attachments": [],
-                            "Cargo": []
+                            "Cargo": [],
+                            "CargoMinMax": "0|0",
+                            "AttachmentsMinMax": "0|0",
+                            "SpawnOnce": true
                           }
                         ],
-                        "Cargo": []
+                        "Cargo": [],
+                        "CargoMinMax": "0|0",
+                        "AttachmentsMinMax": "0|0",
+                        "SpawnOnce": true
                       }
                     ],
                     "Cargo": []
@@ -428,7 +466,7 @@ const DEFAULT_CONFIG = {
                 "Offset": "-1.898437 0.177887 -4.367187",
                 "QuantityMinMax": "-1",
                 "HealthMinMax": "0|0",
-                "Chance": 100,
+                "Chance": 1,
                 "AttachmentsMinMax": "0|0",
                 "CargoMinMax": "1|2",
                 "Attachments": [],
@@ -440,7 +478,9 @@ const DEFAULT_CONFIG = {
                     "Chance": 100,
                     "SpawnOnce": true,
                     "Attachments": [],
-                    "Cargo": []
+                    "Cargo": [],
+                    "CargoMinMax": "0|0",
+                    "AttachmentsMinMax": "0|0"
                   },
                   {
                     "Classname": "Mich2001Helmet",
@@ -449,7 +489,9 @@ const DEFAULT_CONFIG = {
                     "Chance": 50,
                     "SpawnOnce": false,
                     "Attachments": [],
-                    "Cargo": []
+                    "Cargo": [],
+                    "CargoMinMax": "0|0",
+                    "AttachmentsMinMax": "0|0"
                   }
                 ]
               }
@@ -474,7 +516,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "HeadlightH7",
@@ -482,7 +527,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "HeadlightH7",
@@ -490,7 +538,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Wheel",
@@ -498,7 +549,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Wheel",
@@ -506,7 +560,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Wheel",
@@ -514,7 +571,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Wheel",
@@ -522,7 +582,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Wheel",
@@ -530,7 +593,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Door_1_1",
@@ -538,7 +604,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Door_1_2",
@@ -546,7 +615,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Door_2_1",
@@ -554,7 +626,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Door_2_2",
@@ -562,7 +637,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Hood",
@@ -570,7 +648,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Offroad_02_Trunk",
@@ -578,7 +659,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "GlowPlug",
@@ -586,7 +670,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "0|0",
                 "Chance": 100,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               }
             ],
             "Cargo": [
@@ -596,7 +683,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "1|3",
                 "Chance": 50,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               },
               {
                 "Classname": "Mag_AK74_30Rnd",
@@ -604,7 +694,10 @@ const DEFAULT_CONFIG = {
                 "HealthMinMax": "1|3",
                 "Chance": 50,
                 "Attachments": [],
-                "Cargo": []
+                "Cargo": [],
+                "CargoMinMax": "0|0",
+                "AttachmentsMinMax": "0|0",
+                "SpawnOnce": true
               }
             ]
           }
@@ -882,10 +975,11 @@ function renderMinMaxField(value, path, tooltipKey, label) {
   field.className = "quantity-pair object-grid-wide";
   const [min, max] = parsePipeMinMax(value, label === "QuantityMinMax" ? -1 : 0);
   const pathAttr = escapeAttribute(JSON.stringify(path));
-  const tooltipAttr = tooltipKey ? ` data-tooltip-key="${tooltipKey}"` : "";
+  const minTooltipAttr = tooltipKey ? ` data-tooltip-key="${tooltipKey}Min"` : "";
+  const maxTooltipAttr = tooltipKey ? ` data-tooltip-key="${tooltipKey}Max"` : "";
   field.innerHTML = `
-    <label>${escapeHtml(label)} min<input type="number" step="any" value="${escapeAttribute(min)}" data-minmax-path="${pathAttr}" data-minmax-index="0" data-minmax-unset="${label === "QuantityMinMax" ? "-1" : "0"}"${tooltipAttr}></label>
-    <label>${escapeHtml(label)} max<input type="number" step="any" value="${escapeAttribute(max)}" data-minmax-path="${pathAttr}" data-minmax-index="1" data-minmax-unset="${label === "QuantityMinMax" ? "-1" : "0"}"${tooltipAttr}></label>
+    <label>${escapeHtml(label)} min<input type="number" step="any" value="${escapeAttribute(min)}" data-minmax-path="${pathAttr}" data-minmax-index="0" data-minmax-unset="${label === "QuantityMinMax" ? "-1" : "0"}"${minTooltipAttr}></label>
+    <label>${escapeHtml(label)} max<input type="number" step="any" value="${escapeAttribute(max)}" data-minmax-path="${pathAttr}" data-minmax-index="1" data-minmax-unset="${label === "QuantityMinMax" ? "-1" : "0"}"${maxTooltipAttr}></label>
   `;
   return field;
 }
