@@ -299,3 +299,14 @@ Object.assign(window.AIRDROP_TOOLTIPS, {
     en: "Maximum number of cargo items that should spawn. 0|0 spawns nothing; -1 performs one roll of the item list."
   }
 });
+
+Object.assign(window.AIRDROP_TOOLTIPS, {
+  AttachmentsMinMaxMin: {
+    ru: "Минимальное количество аттачментов которые должно заспавнить. 0|0 - не спавнит ничего.\n-1 в обоих параметрах (мин-макс) означает просчет спавнов в зависимости от шансов предмета, без четкого количества предметов.",
+    en: "Minimum number of attachments that should spawn. 0|0 spawns nothing.\n-1 in both parameters (min-max) means spawn rolls are calculated by item chances, without a fixed item count."
+  },
+  CargoMinMaxMin: {
+    ru: "Минимальное количество предметов в карго которые должно заспавнить. 0|0 - не спавнит ничего.\n-1 в обоих параметрах (мин-макс) означает просчет спавнов в зависимости от шансов предмета, без четкого количества предметов.",
+    en: "Minimum number of cargo items that should spawn. 0|0 spawns nothing.\n-1 in both parameters (min-max) means spawn rolls are calculated by item chances, without a fixed item count."
+  }
+});
