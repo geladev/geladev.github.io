@@ -5,148 +5,607 @@ const AIRDROP_COLLAPSED_CARDS_STORAGE_KEY = "airdrop_editor_collapsed_cards";
 const CLASSNAME_STORAGE_KEY = "gelik_common_classnames";
 
 const DEFAULT_CONFIG = {
-  Enabled: 1,
-  AirdropSettings: {
-    DiscordWebhookURL: "",
-    MinPlayersToStart: 0,
-    MaxDropsPerRestart: 1,
-    TimeBetweenDrops: 1,
-    CloseEventsTime: 235,
-    DropVars: [
-      { DropID: "AirDrop_car", Chance: 100, DropLocations: ["Северо-западный аэропорт"] }
-    ],
-    Notifications: {
-      NotifTime: [30, 20, 10, 5],
-      InGameMessageHeader: "Аирдроп",
-      InGameMessageIconPath: "",
-      InGameNotifMessage: "Внимание! Контейнер с автомобилем будет сброшен в районе %location% через %time% минут(ы).",
-      InGameEventStartMessage: "Самолёт вылетел",
-      InGameEventAbortMessage: "Слишком мало игроков, самолёт не вылетел",
-      InGameDropMessage: "Контейнер с автомобилем сброшен у %location%!",
-      InGameOpenMessage: "Открыли",
-      DiscordNotifMessage: "CarDrop: Контейнер с автомобилем будет сброшен в районе %location% через %time% минут(ы).",
-      DiscordEventStartMessage: "Самолёт вылетел",
-      DiscordEventAbortMessage: "Слишком мало игроков, самолёт не вылетел",
-      DiscordDropMessage: "CarDrop: Контейнер с автомобилем сброшен у %location%!",
-      DiscordOpenMessage: "Открыли"
-    },
-    Marker: {
-      Enabled: 1,
-      Title: "AirDrop",
-      Icon: "dz\\gear\\navigation\\data\\map_viewpoint_ca.paa"
-    },
-    DropLocations: [
+  "Enabled": 1,
+  "AirdropSettings": {
+    "DiscordWebhookURL": "",
+    "MinPlayersToStart": 0,
+    "MaxDropsPerRestart": 1,
+    "TimeBetweenDrops": 3,
+    "CloseEventsTime": 235,
+    "DropVars": [
       {
-        Name: "Северо-западный аэропорт",
-        Positions: [[4151.875977, 383.644928, 11746.880859]],
-        ZombieCount: 15,
-        ZombieList: ["ZmbM_CitizenASkinny_Blue", "ZmbM_CitizenASkinny_Grey"],
-        ContaminatedArea: false
+        "DropID": "AirDrop_car",
+        "Chance": 100,
+        "DropLocations": [
+          "Северо-западный аэропорт"
+        ]
       }
     ],
-    DropPresets: [
+    "Notifications": {
+      "InGameEnabled": true,
+      "DiscordEnabled": false,
+      "NotifTime": [
+        30,
+        20,
+        10,
+        5
+      ],
+      "InGameMessageHeader": "Аирдроп",
+      "InGameMessageIconPath": "",
+      "InGameNotifMessage": "Внимание! Контейнер с автомобилем будет сброшен в районе %location% через %time% минут(ы).",
+      "InGameEventStartMessage": "Самолёт вылетел",
+      "InGameEventAbortMessage": "Слишком мало игроков, самолёт не вылетел",
+      "InGameDropMessage": "Контейнер с автомобилем сброшен у %location%!",
+      "InGameOpenMessage": "Открыли",
+      "DiscordNotifMessage": "CarDrop: Контейнер с автомобилем будет сброшен в районе %location% через %time% минут(ы).",
+      "DiscordEventStartMessage": "Самолёт вылетел",
+      "DiscordEventAbortMessage": "Слишком мало игроков, самолёт не вылетел",
+      "DiscordDropMessage": "CarDrop: Контейнер с автомобилем сброшен у %location%!",
+      "DiscordOpenMessage": "Открыли"
+    },
+    "Marker": {
+      "Enabled": 1,
+      "Title": "AirDrop",
+      "Icon": "dz\\gear\\navigation\\data\\map_viewpoint_ca.paa"
+    },
+    "DropLocations": [
       {
-        DropID: "AirDrop_car",
-        AirType: "Gelik_AirDrop_IL76",
-        AirSpeed: 180,
-        AirHeight: 500,
-        DropSpeed: 5,
-        Locked: 1,
-        Tools: {
-          Default: 30,
-          Crowbar: 6,
-          Screwdriver: 12
-        },
-        TimeToRemove: 300,
-        TimeToBoomOnOpen: 250,
-        DropContainer: "Gelik_Container_Camo",
-        CarPreset: "test",
-        Attachments: [],
-        Cargo: [
-          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
-          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
-          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
-          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
-          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
-          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] },
-          { Classname: "Apple", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 0, Attachments: [], Cargo: [] }
+        "Name": "Северо-западный аэропорт",
+        "Positions": [
+          [
+            4151.875977,
+            383.644928,
+            11746.880859
+          ]
         ],
-        DirectSpawn: [
+        "ZombieCount": 15,
+        "ZombieList": [
+          "ZmbM_CitizenASkinny_Blue",
+          "ZmbM_CitizenASkinny_Grey"
+        ],
+        "ContaminatedArea": false
+      }
+    ],
+    "DropPresets": [
+      {
+        "DropID": "AirDrop_car",
+        "AirType": "Gelik_AirDrop_IL76",
+        "AirSpeed": 180,
+        "AirHeight": 500,
+        "DropSpeed": 5,
+        "Locked": 1,
+        "ToolsTimeDamage": {
+          "Default": "30|0",
+          "Crowbar": "6|15",
+          "Screwdriver": "12|10"
+        },
+        "TimeToRemove": 300,
+        "TimeToBoomOnOpen": 250,
+        "DropContainer": "Gelik_Container_Camo",
+        "CarPreset": "test",
+        "AttachmentsMinMax": "0|0",
+        "CargoMinMax": "8|14",
+        "Attachments": [],
+        "Cargo": [
           {
-            Point: "spawn_1",
-            Items: [
+            "Classname": "Apple",
+            "QuantityMinMax": "-1",
+            "HealthMinMax": "0|0",
+            "Chance": 0,
+            "SpawnOnce": false,
+            "Attachments": [],
+            "Cargo": []
+          },
+          {
+            "Classname": "Apple",
+            "QuantityMinMax": "-1",
+            "HealthMinMax": "0|0",
+            "Chance": 20,
+            "SpawnOnce": true,
+            "Attachments": [],
+            "Cargo": []
+          },
+          {
+            "Classname": "M4A1",
+            "QuantityMinMax": "-1",
+            "HealthMinMax": "0|0",
+            "Chance": 100,
+            "AttachmentsMinMax": "5|8",
+            "CargoMinMax": "0|0",
+            "SpawnOnce": true,
+            "Attachments": [
               {
-                Classname: "Mag_AK74_30Rnd",
-                Orientation: "90 90 90",
-                Offset: "2 2 0",
-                QuantityMinMax: "5|25",
-                HealthMinMax: "1|3",
-                Chance: 0,
-                Attachments: [],
-                Cargo: []
+                "Classname": "Mag_STANAG_60Rnd",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
               },
               {
-                Classname: "AK74",
-                Orientation: "90 90 90",
-                Offset: "2 2 0",
-                QuantityMinMax: "10|60",
-                HealthMinMax: "1|3",
-                Chance: 50,
-                Attachments: [],
-                Cargo: []
+                "Classname": "M4_Suppressor",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "M4_OEBttstck_Black",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "M4_RISHndgrd_Black",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Gelik_Optic_Lascope_A2_AkRail",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Battery9V",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "TF_Harris_Bipod",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "UniversalLight",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              }
+            ],
+            "Cargo": []
+          },
+          {
+            "Classname": "SmallProtectorCase",
+            "QuantityMinMax": "-1",
+            "HealthMinMax": "0|0",
+            "Chance": 80,
+            "AttachmentsMinMax": "0|0",
+            "CargoMinMax": "1|3",
+            "SpawnOnce": true,
+            "Attachments": [],
+            "Cargo": [
+              {
+                "Classname": "Apple",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "SpawnOnce": true,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "M4_Suppressor",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "SpawnOnce": false,
+                "Attachments": [],
+                "Cargo": []
               }
             ]
           },
           {
-            Point: "spawn_2",
-            Items: [
+            "Classname": "Woodencrate",
+            "QuantityMinMax": "-1",
+            "HealthMinMax": "0|0",
+            "Chance": 80,
+            "AttachmentsMinMax": "0|0",
+            "CargoMinMax": "2|4",
+            "SpawnOnce": false,
+            "Attachments": [],
+            "Cargo": [
               {
-                Classname: "AK74",
-                Orientation: "0 0 0",
-                Offset: "-2 0 0",
-                QuantityMinMax: "10|60",
-                HealthMinMax: "1|3",
-                Chance: 50,
-                Attachments: [
-                  { Classname: "AK74_WoodBttstck", QuantityMinMax: "10|60", HealthMinMax: "1|3", Chance: 50, Attachments: [], Cargo: [] },
-                  { Classname: "Mag_AK74_30Rnd", QuantityMinMax: "5|25", HealthMinMax: "1|3", Chance: 50, Attachments: [], Cargo: [] }
+                "Classname": "Apple",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "SpawnOnce": true,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "M4_Suppressor",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "SpawnOnce": false,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "M4A1",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "AttachmentsMinMax": "5|8",
+                "CargoMinMax": "0|0",
+                "SpawnOnce": true,
+                "Attachments": [
+                  {
+                    "Classname": "Mag_STANAG_60Rnd",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 100,
+                    "Attachments": [],
+                    "Cargo": []
+                  },
+                  {
+                    "Classname": "M4_Suppressor",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 100,
+                    "Attachments": [],
+                    "Cargo": []
+                  },
+                  {
+                    "Classname": "M4_OEBttstck_Black",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 100,
+                    "Attachments": [],
+                    "Cargo": []
+                  },
+                  {
+                    "Classname": "M4_RISHndgrd_Black",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 100,
+                    "Attachments": [],
+                    "Cargo": []
+                  },
+                  {
+                    "Classname": "UniversalLight",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 100,
+                    "Attachments": [],
+                    "Cargo": []
+                  }
                 ],
-                Cargo: []
+                "Cargo": []
+              }
+            ]
+          }
+        ],
+        "DirectSpawn": [
+          {
+            "Point": "spawn_cen",
+            "Items": [
+              {
+                "Classname": "Woodencrate",
+                "Orientation": "0.000000 0.000000 -0.000000",
+                "Offset": "1.934082 0.177887 -4.209960",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 30,
+                "AttachmentsMinMax": "0|0",
+                "CargoMinMax": "1|2",
+                "Attachments": [],
+                "Cargo": [
+                  {
+                    "Classname": "M4A1",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 100,
+                    "AttachmentsMinMax": "5|8",
+                    "CargoMinMax": "0|0",
+                    "SpawnOnce": true,
+                    "Attachments": [
+                      {
+                        "Classname": "Mag_STANAG_60Rnd",
+                        "QuantityMinMax": "-1",
+                        "HealthMinMax": "0|0",
+                        "Chance": 100,
+                        "Attachments": [],
+                        "Cargo": []
+                      },
+                      {
+                        "Classname": "M4_Suppressor",
+                        "QuantityMinMax": "-1",
+                        "HealthMinMax": "0|0",
+                        "Chance": 100,
+                        "Attachments": [],
+                        "Cargo": []
+                      },
+                      {
+                        "Classname": "M4_OEBttstck_Black",
+                        "QuantityMinMax": "-1",
+                        "HealthMinMax": "0|0",
+                        "Chance": 100,
+                        "Attachments": [],
+                        "Cargo": []
+                      },
+                      {
+                        "Classname": "M4_RISHndgrd_Black",
+                        "QuantityMinMax": "-1",
+                        "HealthMinMax": "0|0",
+                        "Chance": 100,
+                        "Attachments": [],
+                        "Cargo": []
+                      },
+                      {
+                        "Classname": "UniversalLight",
+                        "QuantityMinMax": "-1",
+                        "HealthMinMax": "0|0",
+                        "Chance": 100,
+                        "Attachments": [
+                          {
+                            "Classname": "Battery9V",
+                            "QuantityMinMax": "-1",
+                            "HealthMinMax": "0|0",
+                            "Chance": 100,
+                            "Attachments": [],
+                            "Cargo": []
+                          }
+                        ],
+                        "Cargo": []
+                      }
+                    ],
+                    "Cargo": []
+                  },
+                  {
+                    "Classname": "Aug",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 70,
+                    "AttachmentsMinMax": "3|5",
+                    "CargoMinMax": "0|0",
+                    "SpawnOnce": false,
+                    "Attachments": [
+                      {
+                        "Classname": "Mag_STANAG_60Rnd",
+                        "QuantityMinMax": "-1",
+                        "HealthMinMax": "0|0",
+                        "Chance": 100,
+                        "Attachments": [],
+                        "Cargo": []
+                      },
+                      {
+                        "Classname": "M4_Suppressor",
+                        "QuantityMinMax": "-1",
+                        "HealthMinMax": "0|0",
+                        "Chance": 100,
+                        "Attachments": [],
+                        "Cargo": []
+                      },
+                      {
+                        "Classname": "UniversalLight",
+                        "QuantityMinMax": "-1",
+                        "HealthMinMax": "0|0",
+                        "Chance": 100,
+                        "Attachments": [
+                          {
+                            "Classname": "Battery9V",
+                            "QuantityMinMax": "-1",
+                            "HealthMinMax": "0|0",
+                            "Chance": 100,
+                            "Attachments": [],
+                            "Cargo": []
+                          }
+                        ],
+                        "Cargo": []
+                      }
+                    ],
+                    "Cargo": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Point": "spawn_cen",
+            "Items": [
+              {
+                "Classname": "Barrel_Blue",
+                "Orientation": "0.000000 0.000000 -0.000000",
+                "Offset": "-1.898437 0.177887 -4.367187",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "AttachmentsMinMax": "0|0",
+                "CargoMinMax": "1|2",
+                "Attachments": [],
+                "Cargo": [
+                  {
+                    "Classname": "NailBox",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 100,
+                    "SpawnOnce": true,
+                    "Attachments": [],
+                    "Cargo": []
+                  },
+                  {
+                    "Classname": "Mich2001Helmet",
+                    "QuantityMinMax": "-1",
+                    "HealthMinMax": "0|0",
+                    "Chance": 50,
+                    "SpawnOnce": false,
+                    "Attachments": [],
+                    "Cargo": []
+                  }
+                ]
               }
             ]
           }
         ]
       }
     ],
-    CarPresets: [
+    "CarPresets": [
       {
-        Name: "test",
-        Cars: [
+        "Name": "test",
+        "Cars": [
           {
-            Classname: "Offroad_02",
-            Fuel: 0,
-            Water: 50,
-            Chance: 10,
-            Attachments: [
-              { Classname: "CarBattery", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "HeadlightH7", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "HeadlightH7", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Wheel", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Door_1_1", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Door_1_2", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Door_2_1", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Door_2_2", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Hood", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "Offroad_02_Trunk", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] },
-              { Classname: "GlowPlug", QuantityMinMax: "-1", HealthMinMax: "0|0", Chance: 100, Attachments: [], Cargo: [] }
+            "Classname": "Offroad_02",
+            "Fuel": 0,
+            "Water": 50,
+            "Chance": 10,
+            "Attachments": [
+              {
+                "Classname": "CarBattery",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "HeadlightH7",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "HeadlightH7",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Wheel",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Wheel",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Wheel",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Wheel",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Wheel",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Door_1_1",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Door_1_2",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Door_2_1",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Door_2_2",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Hood",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Offroad_02_Trunk",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "GlowPlug",
+                "QuantityMinMax": "-1",
+                "HealthMinMax": "0|0",
+                "Chance": 100,
+                "Attachments": [],
+                "Cargo": []
+              }
             ],
-            Cargo: [
-              { Classname: "AK74_WoodBttstck", QuantityMinMax: "10|60", HealthMinMax: "1|3", Chance: 50, Attachments: [], Cargo: [] },
-              { Classname: "Mag_AK74_30Rnd", QuantityMinMax: "5|25", HealthMinMax: "1|3", Chance: 50, Attachments: [], Cargo: [] }
+            "Cargo": [
+              {
+                "Classname": "AK74_WoodBttstck",
+                "QuantityMinMax": "10|60",
+                "HealthMinMax": "1|3",
+                "Chance": 50,
+                "Attachments": [],
+                "Cargo": []
+              },
+              {
+                "Classname": "Mag_AK74_30Rnd",
+                "QuantityMinMax": "5|25",
+                "HealthMinMax": "1|3",
+                "Chance": 50,
+                "Attachments": [],
+                "Cargo": []
+              }
             ]
           }
         ]
@@ -246,7 +705,7 @@ function renderEditor() {
 function renderValue(value, path, onlyFields = null) {
   if (Array.isArray(value)) return renderArray(value, path);
   if (value && typeof value === "object") {
-    if (path[path.length - 1] === "Tools") return renderTools(value, path);
+    if (["Tools", "ToolsTimeDamage"].includes(path[path.length - 1])) return renderToolsTimeDamage(value, path);
     return renderObject(value, path, onlyFields);
   }
   return renderPrimitive(value, path);
@@ -267,6 +726,8 @@ function renderObject(object, path, onlyFields = null) {
       const block = document.createElement("section");
       block.className = "item-subblock object-grid-wide";
       if (Array.isArray(value)) {
+        block.append(renderValue(value, childPath));
+      } else if (["Tools", "ToolsTimeDamage"].includes(key)) {
         block.append(renderValue(value, childPath));
       } else {
         block.innerHTML = `<div class="panel-head"><h3>${escapeHtml(key)}</h3></div>`;
@@ -357,8 +818,8 @@ function renderPrimitive(value, path, label = path[path.length - 1]) {
     return renderHealthMinMax(value, path, tooltipKey);
   }
 
-  if (fieldName === "QuantityMinMax") {
-    return renderQuantityMinMax(value, path, tooltipKey);
+  if (["QuantityMinMax", "AttachmentsMinMax", "CargoMinMax"].includes(fieldName)) {
+    return renderMinMaxField(value, path, tooltipKey, fieldName);
   }
 
   if (typeof value === "boolean") {
@@ -416,54 +877,75 @@ function createAirdropHealthSelect(pathAttr, index, value, tooltipAttr) {
   return `<select data-health-path="${pathAttr}" data-health-index="${index}"${tooltipAttr}>${options.map(([optionValue, label]) => `<option value="${optionValue}"${Number(value) === optionValue ? " selected" : ""}>${label}</option>`).join("")}</select>`;
 }
 
-function renderQuantityMinMax(value, path, tooltipKey) {
+function renderMinMaxField(value, path, tooltipKey, label) {
   const field = document.createElement("div");
   field.className = "quantity-pair object-grid-wide";
-  const [min, max] = parseQuantityMinMax(value);
+  const [min, max] = parsePipeMinMax(value, label === "QuantityMinMax" ? -1 : 0);
   const pathAttr = escapeAttribute(JSON.stringify(path));
   const tooltipAttr = tooltipKey ? ` data-tooltip-key="${tooltipKey}"` : "";
   field.innerHTML = `
-    <label>QuantityMinMax min<input type="number" step="any" value="${escapeAttribute(min)}" data-quantity-path="${pathAttr}" data-quantity-index="0"${tooltipAttr}></label>
-    <label>QuantityMinMax max<input type="number" step="any" value="${escapeAttribute(max)}" data-quantity-path="${pathAttr}" data-quantity-index="1"${tooltipAttr}></label>
+    <label>${escapeHtml(label)} min<input type="number" step="any" value="${escapeAttribute(min)}" data-minmax-path="${pathAttr}" data-minmax-index="0" data-minmax-unset="${label === "QuantityMinMax" ? "-1" : "0"}"${tooltipAttr}></label>
+    <label>${escapeHtml(label)} max<input type="number" step="any" value="${escapeAttribute(max)}" data-minmax-path="${pathAttr}" data-minmax-index="1" data-minmax-unset="${label === "QuantityMinMax" ? "-1" : "0"}"${tooltipAttr}></label>
   `;
   return field;
 }
 
-function parseQuantityMinMax(value) {
+function parsePipeMinMax(value, fallback = -1) {
   if (String(value) === "-1") return [-1, -1];
-  const parts = String(value || "-1").split("|").map((part) => Number(part));
-  const min = Number.isFinite(parts[0]) ? parts[0] : -1;
+  const parts = String(value ?? fallback).split("|").map((part) => Number(part));
+  const min = Number.isFinite(parts[0]) ? parts[0] : fallback;
   const max = Number.isFinite(parts[1]) ? parts[1] : min;
   return [min, max];
 }
 
-function formatQuantityMinMax(pair) {
-  if (pair[0] === -1 && pair[1] === -1) return "-1";
+function formatPipeMinMax(pair, unsetValue = -1) {
+  if (unsetValue === -1 && pair[0] === -1 && pair[1] === -1) return "-1";
   return `${pair[0]}|${pair[1]}`;
 }
 
-function renderTools(object, path) {
+function parseQuantityMinMax(value) {
+  return parsePipeMinMax(value, -1);
+}
+
+function formatQuantityMinMax(pair) {
+  return formatPipeMinMax(pair, -1);
+}
+
+function renderToolsTimeDamage(object, path) {
   const wrap = document.createElement("section");
   wrap.className = "array-panel";
   wrap.innerHTML = `
     <div class="panel-head">
-      <h3>Tools</h3>
+      <h3>ToolsTimeDamage</h3>
       <button class="small-button" type="button" data-action="addTool" data-path="${escapeAttribute(JSON.stringify(path))}">${i18n("add")}</button>
     </div>
     <div class="stack"></div>
   `;
   const list = wrap.querySelector(".stack");
   getOrderedToolEntries(object).forEach(([key, value]) => {
+    const [time, damage] = parseToolTimeDamage(value);
     const row = document.createElement("div");
-    row.className = "row tool-row";
+    row.className = "row tool-row tool-damage-row";
     row.innerHTML = `
-      <input type="text" value="${escapeAttribute(key)}" data-tool-key="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}" data-tooltip-key="Tools" data-classname-field>
-      <input type="number" step="any" value="${escapeAttribute(value)}" data-tool-time="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}" data-tooltip-key="Tools">
+      <input type="text" value="${escapeAttribute(key)}" data-tool-key="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}" data-tooltip-key="ToolsTimeDamageClassname" data-classname-field>
+      <input type="number" step="any" value="${escapeAttribute(time)}" data-tool-time="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}" data-tooltip-key="ToolsTimeDamageTime">
+      <input type="number" step="any" value="${escapeAttribute(damage)}" data-tool-damage="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}" data-tooltip-key="ToolsTimeDamageDamage">
       <button class="remove" type="button" title="${i18n("delete")}" data-action="deleteTool" data-tool-key="${escapeAttribute(key)}" data-path="${escapeAttribute(JSON.stringify(path))}">&times;</button>
     `;
     list.append(row);
   });
   return wrap;
+}
+
+function parseToolTimeDamage(value) {
+  const parts = String(value ?? "0|0").split("|").map((part) => Number(part));
+  const time = Number.isFinite(parts[0]) ? parts[0] : 0;
+  const damage = Number.isFinite(parts[1]) ? parts[1] : 0;
+  return [time, damage];
+}
+
+function formatToolTimeDamage(time, damage) {
+  return `${Number(time) || 0}|${Number(damage) || 0}`;
 }
 
 function getOrderedToolEntries(object) {
@@ -477,15 +959,15 @@ function getOrderedToolEntries(object) {
 
 function addToolEntry(tools) {
   if (!Object.hasOwn(tools, "Default")) {
-    tools.Default = 30;
+    tools.Default = "30|0";
     return;
   }
   if (!Object.hasOwn(tools, "Hands")) {
-    tools.Hands = 60;
+    tools.Hands = "60|0";
     return;
   }
   if (!Object.hasOwn(tools, "")) {
-    tools[""] = 0;
+    tools[""] = "0|0";
     return;
   }
 
@@ -495,7 +977,7 @@ function addToolEntry(tools) {
     index += 1;
     name = `NewTool${index}`;
   }
-  tools[name] = 0;
+  tools[name] = "0|0";
 }
 
 function getItemTitle(item, index) {
@@ -599,6 +1081,9 @@ function createAirdropItem(includeTransform) {
     QuantityMinMax: "-1",
     HealthMinMax: "0|0",
     Chance: 100,
+    AttachmentsMinMax: "0|0",
+    CargoMinMax: "0|0",
+    SpawnOnce: false,
     Attachments: [],
     Cargo: []
   };
@@ -628,6 +1113,7 @@ function sanitizeAirdropValue(value, path) {
     return value.map((item, index) => sanitizeAirdropValue(item, [...path, index]));
   }
   if (value && typeof value === "object") {
+    normalizeToolsTimeDamage(value);
     if (isAttachmentOrCargoPath(path)) {
       delete value.Orientation;
       delete value.Offset;
@@ -637,6 +1123,20 @@ function sanitizeAirdropValue(value, path) {
     });
   }
   return value;
+}
+
+function normalizeToolsTimeDamage(value) {
+  if (value.Tools && !value.ToolsTimeDamage) {
+    value.ToolsTimeDamage = value.Tools;
+  }
+  if (value.Tools) {
+    delete value.Tools;
+  }
+  if (!value.ToolsTimeDamage || typeof value.ToolsTimeDamage !== "object" || Array.isArray(value.ToolsTimeDamage)) return;
+  Object.keys(value.ToolsTimeDamage).forEach((key) => {
+    const [time, damage] = parseToolTimeDamage(value.ToolsTimeDamage[key]);
+    value.ToolsTimeDamage[key] = formatToolTimeDamage(time, damage);
+  });
 }
 
 function isAttachmentOrCargoPath(path) {
@@ -878,11 +1378,12 @@ function escapeAttribute(value) {
 }
 
 editorContent.addEventListener("input", (event) => {
-  if (event.target.dataset.quantityPath) {
-    const path = parsePath(event.target.dataset.quantityPath);
-    const pair = parseQuantityMinMax(getValue(path));
-    pair[Number(event.target.dataset.quantityIndex)] = Number(event.target.value);
-    setValue(path, formatQuantityMinMax(pair));
+  if (event.target.dataset.minmaxPath) {
+    const path = parsePath(event.target.dataset.minmaxPath);
+    const unsetValue = Number(event.target.dataset.minmaxUnset);
+    const pair = parsePipeMinMax(getValue(path), unsetValue);
+    pair[Number(event.target.dataset.minmaxIndex)] = Number(event.target.value);
+    setValue(path, formatPipeMinMax(pair, unsetValue));
     renderPreview();
     return;
   }
@@ -906,7 +1407,7 @@ editorContent.addEventListener("input", (event) => {
   }
 
   const pathValue = event.target.dataset.path;
-  if (!pathValue || event.target.hasAttribute("data-tool-key") || event.target.hasAttribute("data-tool-time")) return;
+  if (!pathValue || event.target.hasAttribute("data-tool-key") || event.target.hasAttribute("data-tool-time") || event.target.hasAttribute("data-tool-damage")) return;
   const path = parsePath(pathValue);
   let value = event.target.value;
   if (event.target.type === "number") value = Number(value);
@@ -922,11 +1423,12 @@ editorContent.addEventListener("input", (event) => {
 });
 
 editorContent.addEventListener("change", (event) => {
-  if (event.target.dataset.quantityPath) {
-    const path = parsePath(event.target.dataset.quantityPath);
-    const pair = parseQuantityMinMax(getValue(path));
-    pair[Number(event.target.dataset.quantityIndex)] = Number(event.target.value);
-    setValue(path, formatQuantityMinMax(pair));
+  if (event.target.dataset.minmaxPath) {
+    const path = parsePath(event.target.dataset.minmaxPath);
+    const unsetValue = Number(event.target.dataset.minmaxUnset);
+    const pair = parsePipeMinMax(getValue(path), unsetValue);
+    pair[Number(event.target.dataset.minmaxIndex)] = Number(event.target.value);
+    setValue(path, formatPipeMinMax(pair, unsetValue));
     renderPreview();
     return;
   }
@@ -963,14 +1465,19 @@ editorContent.addEventListener("change", (event) => {
     render();
   }
 
-  if (event.target.hasAttribute("data-tool-time")) {
+  if (event.target.hasAttribute("data-tool-time") || event.target.hasAttribute("data-tool-damage")) {
     const path = parsePath(event.target.dataset.path);
     const tools = getValue(path);
-    tools[event.target.dataset.toolTime] = Number(event.target.value);
+    const key = event.target.dataset.toolTime || event.target.dataset.toolDamage;
+    const [time, damage] = parseToolTimeDamage(tools[key]);
+    const nextTime = event.target.hasAttribute("data-tool-time") ? Number(event.target.value) : time;
+    const nextDamage = event.target.hasAttribute("data-tool-damage") ? Number(event.target.value) : damage;
+    tools[key] = formatToolTimeDamage(nextTime, nextDamage);
     renderPreview();
+    return;
   }
 
-  if (event.target.dataset.path && !event.target.hasAttribute("data-tool-key") && !event.target.hasAttribute("data-tool-time")) {
+  if (event.target.dataset.path && !event.target.hasAttribute("data-tool-key") && !event.target.hasAttribute("data-tool-time") && !event.target.hasAttribute("data-tool-damage")) {
     const path = parsePath(event.target.dataset.path);
     let value = event.target.value;
     if (event.target.type === "number") value = Number(value);
@@ -1118,4 +1625,5 @@ renderClassnameOptions();
 render();
 isRestoringState = false;
 saveEditorState();
+
 

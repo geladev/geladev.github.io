@@ -200,3 +200,49 @@ window.AIRDROP_TOOLTIPS = {
     en: "Radiator water amount."
   }
 };
+
+Object.assign(window.AIRDROP_TOOLTIPS, {
+  InGameEnabled: {
+    ru: "Включить или выключить уведомления в игре.",
+    en: "Enable or disable in-game notifications."
+  },
+  DiscordEnabled: {
+    ru: "Включить или выключить уведомления через Discord webhook.",
+    en: "Enable or disable Discord webhook notifications."
+  },
+  ToolsTimeDamage: {
+    ru: "Инструменты открытия дропа. Слева classname инструмента, рядом время открытия в секундах, справа урон инструменту. Default - время открытия чем угодно.",
+    en: "Drop opening tools. Left is the tool classname, then opening time in seconds, then tool damage. Default - opening time with anything."
+  },
+  ToolsTimeDamageDamage: {
+    ru: "Урон инструменту при открытии.",
+    en: "Tool damage dealt on opening."
+  },
+  AttachmentsMinMax: {
+    ru: "Мин-макс количество предметов, которое может выпасть из списка Attachments.",
+    en: "Min-max amount of items that can spawn from the Attachments list."
+  },
+  CargoMinMax: {
+    ru: "Мин-макс количество предметов, которое может выпасть в Cargo.",
+    en: "Min-max amount of items that can spawn into Cargo."
+  },
+  SpawnOnce: {
+    ru: "Если включено, предмет не должен спавниться более одного раза.",
+    en: "If enabled, this item should not spawn more than once."
+  }
+});
+
+Object.assign(window.AIRDROP_TOOLTIPS, {
+  ToolsTimeDamageClassname: {
+    ru: "Класснейм инструмента для открытия. Default - открытие чем угодно. Hands - открытие руками.",
+    en: "Tool classname used for opening. Default - opening with anything. Hands - opening by hand."
+  },
+  ToolsTimeDamageTime: {
+    ru: "Время открытия данным инструментом (секунды).",
+    en: "Opening time with this tool, in seconds."
+  },
+  ToolsTimeDamageDamage: {
+    ru: "Урон инструменту после открытия.",
+    en: "Tool damage after opening."
+  }
+});
