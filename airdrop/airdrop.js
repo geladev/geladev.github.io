@@ -1473,14 +1473,31 @@ function escapeAttribute(value) {
   return escapeHtml(value);
 }
 
+function updateMinMaxInput(target) {
+  const path = parsePath(target.dataset.minmaxPath);
+  const unsetValue = Number(target.dataset.minmaxUnset);
+  const pair = parsePipeMinMax(getValue(path), unsetValue);
+  pair[Number(target.dataset.minmaxIndex)] = Number(target.value);
+  if (pair.includes(-1)) {
+    pair[0] = -1;
+    pair[1] = -1;
+    syncMinMaxInputs(path, pair);
+  }
+  setValue(path, formatPipeMinMax(pair, unsetValue));
+  renderPreview();
+}
+
+function syncMinMaxInputs(path, pair) {
+  const pathValue = JSON.stringify(path);
+  editorContent.querySelectorAll("[data-minmax-path]").forEach((input) => {
+    if (input.dataset.minmaxPath !== pathValue) return;
+    input.value = pair[Number(input.dataset.minmaxIndex)];
+  });
+}
+
 editorContent.addEventListener("input", (event) => {
   if (event.target.dataset.minmaxPath) {
-    const path = parsePath(event.target.dataset.minmaxPath);
-    const unsetValue = Number(event.target.dataset.minmaxUnset);
-    const pair = parsePipeMinMax(getValue(path), unsetValue);
-    pair[Number(event.target.dataset.minmaxIndex)] = Number(event.target.value);
-    setValue(path, formatPipeMinMax(pair, unsetValue));
-    renderPreview();
+    updateMinMaxInput(event.target);
     return;
   }
 
@@ -1520,12 +1537,7 @@ editorContent.addEventListener("input", (event) => {
 
 editorContent.addEventListener("change", (event) => {
   if (event.target.dataset.minmaxPath) {
-    const path = parsePath(event.target.dataset.minmaxPath);
-    const unsetValue = Number(event.target.dataset.minmaxUnset);
-    const pair = parsePipeMinMax(getValue(path), unsetValue);
-    pair[Number(event.target.dataset.minmaxIndex)] = Number(event.target.value);
-    setValue(path, formatPipeMinMax(pair, unsetValue));
-    renderPreview();
+    updateMinMaxInput(event.target);
     return;
   }
 
