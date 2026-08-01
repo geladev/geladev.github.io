@@ -973,13 +973,15 @@ function createAirdropHealthSelect(pathAttr, index, value, tooltipAttr) {
 function renderMinMaxField(value, path, tooltipKey, label) {
   const field = document.createElement("div");
   field.className = "quantity-pair object-grid-wide";
-  const [min, max] = parsePipeMinMax(value, label === "QuantityMinMax" ? -1 : 0);
+  const fallback = label === "QuantityMinMax" ? -1 : 0;
+  const [min, max] = parsePipeMinMax(value, fallback);
   const pathAttr = escapeAttribute(JSON.stringify(path));
+  const unsetValue = -1;
   const minTooltipAttr = tooltipKey ? ` data-tooltip-key="${tooltipKey}Min"` : "";
   const maxTooltipAttr = tooltipKey ? ` data-tooltip-key="${tooltipKey}Max"` : "";
   field.innerHTML = `
-    <label>${escapeHtml(label)} min<input type="number" step="any" value="${escapeAttribute(min)}" data-minmax-path="${pathAttr}" data-minmax-index="0" data-minmax-unset="${label === "QuantityMinMax" ? "-1" : "0"}"${minTooltipAttr}></label>
-    <label>${escapeHtml(label)} max<input type="number" step="any" value="${escapeAttribute(max)}" data-minmax-path="${pathAttr}" data-minmax-index="1" data-minmax-unset="${label === "QuantityMinMax" ? "-1" : "0"}"${maxTooltipAttr}></label>
+    <label>${escapeHtml(label)} min<input type="number" step="any" value="${escapeAttribute(min)}" data-minmax-path="${pathAttr}" data-minmax-index="0" data-minmax-unset="${unsetValue}"${minTooltipAttr}></label>
+    <label>${escapeHtml(label)} max<input type="number" step="any" value="${escapeAttribute(max)}" data-minmax-path="${pathAttr}" data-minmax-index="1" data-minmax-unset="${unsetValue}"${maxTooltipAttr}></label>
   `;
   return field;
 }

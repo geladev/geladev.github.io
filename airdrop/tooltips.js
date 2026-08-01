@@ -280,3 +280,22 @@ Object.assign(window.AIRDROP_TOOLTIPS, {
     en: "Maximum item quantity value."
   }
 });
+
+Object.assign(window.AIRDROP_TOOLTIPS, {
+  AttachmentsMinMaxMin: {
+    ru: "Минимальное количество аттачментов которые должно заспавнить. 0|0 - не спавнит ничего, -1 - произойдет один просчет списка предметов.",
+    en: "Minimum number of attachments that should spawn. 0|0 spawns nothing; -1 performs one roll of the item list."
+  },
+  AttachmentsMinMaxMax: {
+    ru: "Максимальное количество аттачментов которые должно заспавнить. 0|0 - не спавнит ничего, -1 - произойдет один просчет списка предметов.",
+    en: "Maximum number of attachments that should spawn. 0|0 spawns nothing; -1 performs one roll of the item list."
+  },
+  CargoMinMaxMin: {
+    ru: "Минимальное количество предметов в карго которые должно заспавнить. 0|0 - не спавнит ничего, -1 - произойдет один просчет списка предметов.",
+    en: "Minimum number of cargo items that should spawn. 0|0 spawns nothing; -1 performs one roll of the item list."
+  },
+  CargoMinMaxMax: {
+    ru: "Максимальное количество предметов в карго которые должно заспавнить. 0|0 - не спавнит ничего, -1 - произойдет один просчет списка предметов.",
+    en: "Maximum number of cargo items that should spawn. 0|0 spawns nothing; -1 performs one roll of the item list."
+  }
+});
