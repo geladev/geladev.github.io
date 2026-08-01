@@ -604,6 +604,11 @@ textarea {
   line-height: 1;
 }
 
+.collapse-button:disabled {
+  opacity: 0.42;
+  cursor: default;
+}
+
 .item-card.collapsed .item-card-body {
   display: none;
 }

@@ -878,11 +878,18 @@ function renderArray(array, path) {
     const card = document.createElement("div");
     const cardKey = getCardKey(itemPath);
     const collapsed = collapsedCards.has(cardKey);
+    const reorderable = isCargoOrAttachmentsArray(path);
+    const moveControls = reorderable ? `
+          <button class="collapse-button" type="button" title="Duplicate" data-action="duplicate" data-path="${escapeAttribute(JSON.stringify(itemPath))}">D</button>
+          <button class="collapse-button" type="button" title="Move up" data-action="moveUp" data-path="${escapeAttribute(JSON.stringify(itemPath))}"${index === 0 ? " disabled" : ""}>^</button>
+          <button class="collapse-button" type="button" title="Move down" data-action="moveDown" data-path="${escapeAttribute(JSON.stringify(itemPath))}"${index === array.length - 1 ? " disabled" : ""}>v</button>
+    ` : "";
     card.className = `item-card compact-card${collapsed ? " collapsed" : ""}`;
     card.innerHTML = `
       <div class="item-head">
         <h3>${escapeHtml(getItemTitle(item, index))}</h3>
         <div class="item-head-actions">
+          ${moveControls}
           <button class="collapse-button" type="button" title="${collapsed ? "Expand" : "Collapse"}" data-action="toggleCard" data-card-key="${escapeAttribute(cardKey)}">${collapsed ? "+" : "&minus;"}</button>
           <button class="remove" type="button" title="${i18n("delete")}" data-action="delete" data-path="${escapeAttribute(JSON.stringify(itemPath))}">&times;</button>
         </div>
@@ -1126,6 +1133,11 @@ function isDropVarLocationValue(path) {
     && typeof path[path.length - 1] === "number";
 }
 
+function isCargoOrAttachmentsArray(path) {
+  const key = String(path[path.length - 1]);
+  return key === "Cargo" || key === "Attachments";
+}
+
 function createDropLocationSelect(value, path) {
   const values = [...new Set([value, ...getDropLocationNames()].filter(Boolean))];
   if (!values.length) values.push("");
@@ -1146,6 +1158,23 @@ function deleteValue(path) {
   const key = path[path.length - 1];
   if (Array.isArray(parent)) parent.splice(key, 1);
   else delete parent[key];
+}
+
+function duplicateArrayItem(path) {
+  const parent = getValue(path.slice(0, -1));
+  const index = path[path.length - 1];
+  if (!Array.isArray(parent)) return;
+  parent.splice(index + 1, 0, structuredClone(parent[index]));
+}
+
+function moveArrayItem(path, direction) {
+  const parent = getValue(path.slice(0, -1));
+  const index = path[path.length - 1];
+  if (!Array.isArray(parent)) return;
+  const nextIndex = index + direction;
+  if (nextIndex < 0 || nextIndex >= parent.length) return;
+  const [item] = parent.splice(index, 1);
+  parent.splice(nextIndex, 0, item);
 }
 
 function getDefaultArrayItem(path) {
@@ -1664,6 +1693,18 @@ editorContent.addEventListener("click", (event) => {
   }
   if (button.dataset.action === "delete") {
     deleteValue(path);
+    render();
+  }
+  if (button.dataset.action === "duplicate") {
+    duplicateArrayItem(path);
+    render();
+  }
+  if (button.dataset.action === "moveUp") {
+    moveArrayItem(path, -1);
+    render();
+  }
+  if (button.dataset.action === "moveDown") {
+    moveArrayItem(path, 1);
     render();
   }
   if (button.dataset.action === "addTool") {
