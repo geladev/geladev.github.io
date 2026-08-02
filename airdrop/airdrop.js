@@ -1521,10 +1521,15 @@ function updateMinMaxInput(target) {
   const path = parsePath(target.dataset.minmaxPath);
   const unsetValue = Number(target.dataset.minmaxUnset);
   const pair = parsePipeMinMax(getValue(path), unsetValue);
-  pair[Number(target.dataset.minmaxIndex)] = Number(target.value);
-  if (pair.includes(-1)) {
+  const index = Number(target.dataset.minmaxIndex);
+  const nextValue = Number(target.value);
+  pair[index] = nextValue;
+  if (nextValue === -1) {
     pair[0] = -1;
     pair[1] = -1;
+    syncMinMaxInputs(path, pair);
+  } else if (pair[1 - index] === -1) {
+    pair[1 - index] = nextValue;
     syncMinMaxInputs(path, pair);
   }
   setValue(path, formatPipeMinMax(pair, unsetValue));
