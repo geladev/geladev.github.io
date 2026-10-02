@@ -44,3 +44,14 @@ window.RANDOMGIFTS_TOOLTIPS = {
     en: "G_GlobalHealthMinMax[1]: maximum health state. -1 do not set, 0 pristine, 1 worn, 2 damaged, 3 badly damaged, 4 ruined."
   }
 };
+
+Object.assign(window.RANDOMGIFTS_TOOLTIPS, {
+  itemClassname: { ru: "ClassName: класснейм предмета.", en: "ClassName: item classname." },
+  itemChance: { ru: "Chance: шанс появления предмета.", en: "Chance: item spawn chance." },
+  itemQuantityMin: { ru: "QuantityMinMax: минимальное количество предмета. Диапазон сохраняется через |.", en: "QuantityMinMax: minimum item quantity. The range is saved using |." },
+  itemQuantityMax: { ru: "QuantityMinMax: максимальное количество предмета. Диапазон сохраняется через |.", en: "QuantityMinMax: maximum item quantity. The range is saved using |." },
+  itemHealthMin: { ru: "HealthStateMinMax: минимальное состояние. 0 - нетронутое, 1 - поношенное, 2 - поврежденное, 3 - сильно поврежденное, 4 - уничтоженное. -1 - не задавать.", en: "HealthStateMinMax: minimum health state. 0 - pristine, 1 - worn, 2 - damaged, 3 - badly damaged, 4 - ruined. -1 - unset." },
+  itemHealthMax: { ru: "HealthStateMinMax: максимальное состояние. 0 - нетронутое, 1 - поношенное, 2 - поврежденное, 3 - сильно поврежденное, 4 - уничтоженное. -1 - не задавать.", en: "HealthStateMinMax: maximum health state. 0 - pristine, 1 - worn, 2 - damaged, 3 - badly damaged, 4 - ruined. -1 - unset." },
+  Attachments: { ru: "Предметы в слотах родительского предмета. Каждый может содержать свои Attachments и Cargo.", en: "Items in the parent item's attachment slots. Each item can contain its own Attachments and Cargo." },
+  Cargo: { ru: "Предметы в инвентаре родительского предмета. Каждый может содержать свои Attachments и Cargo.", en: "Items in the parent item's inventory. Each item can contain its own Attachments and Cargo." }
+});

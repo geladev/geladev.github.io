@@ -50,10 +50,12 @@ function createGroup() {
 
 function createItem() {
   return {
-    G_ClassName: "NewItem",
-    G_QuantityMinMax: [-1, -1],
-    G_GlobalHealthMinMax: [-1, -1],
-    G_Chance: -1
+    ClassName: "NewItem",
+    QuantityMinMax: "-1",
+    HealthStateMinMax: "-1",
+    Chance: -1,
+    Attachments: [],
+    Cargo: []
   };
 }
 
@@ -66,12 +68,7 @@ function normalizeConfig(input) {
     group.G_GiftClassname = group.G_GiftClassname || "";
     group.G_GiftItemsMinMax = normalizePair(group.G_GiftItemsMinMax, [1, 1]);
     group.G_Items = Array.isArray(group.G_Items) ? group.G_Items : [];
-    group.G_Items.forEach((item) => {
-      item.G_ClassName = item.G_ClassName || "";
-      item.G_QuantityMinMax = normalizePair(item.G_QuantityMinMax, [-1, -1]);
-      item.G_GlobalHealthMinMax = normalizePair(item.G_GlobalHealthMinMax, [-1, -1]);
-      item.G_Chance = numberOr(item.G_Chance, -1);
-    });
+    group.G_Items = group.G_Items.map(normalizeItem);
   });
 
   return input;
@@ -80,6 +77,26 @@ function normalizeConfig(input) {
 function normalizePair(value, fallback) {
   if (!Array.isArray(value)) return [...fallback];
   return [numberOr(value[0], fallback[0]), numberOr(value[1], fallback[1])];
+}
+
+function itemPair(value) {
+  if (value === "-1" || value === -1) return [-1, -1];
+  return normalizePair(typeof value === "string" ? value.split("|") : value, [-1, -1]);
+}
+
+function pairString(pair) {
+  return pair.every((value) => value === -1) ? "-1" : pair.join("|");
+}
+
+function normalizeItem(item) {
+  return {
+    ClassName: item.ClassName ?? item.G_ClassName ?? "",
+    Chance: numberOr(item.Chance ?? item.G_Chance, -1),
+    QuantityMinMax: pairString(itemPair(item.QuantityMinMax ?? item.G_QuantityMinMax)),
+    HealthStateMinMax: pairString(itemPair(item.HealthStateMinMax ?? item.G_GlobalHealthMinMax)),
+    Attachments: Array.isArray(item.Attachments) ? item.Attachments.map(normalizeItem) : [],
+    Cargo: Array.isArray(item.Cargo) ? item.Cargo.map(normalizeItem) : []
+  };
 }
 
 function numberOr(value, fallback) {
@@ -131,36 +148,42 @@ function renderEditor() {
 
 function renderItems(group) {
   itemList.innerHTML = "";
-  group.G_Items.forEach((item, index) => {
+  renderItemArray(group.G_Items, itemList);
+}
+
+function renderItemArray(items, container) {
+  items.forEach((item, index) => {
+    const quantity = itemPair(item.QuantityMinMax);
+    const health = itemPair(item.HealthStateMinMax);
     const card = document.createElement("div");
     card.className = "item-card";
     card.innerHTML = `
       <div class="item-head">
-        <h3>${escapeHtml(item.G_ClassName || i18n("itemNumber", { number: index + 1 }))}</h3>
+        <h3>${escapeHtml(item.ClassName || i18n("itemNumber", { number: index + 1 }))}</h3>
         <button class="remove" type="button" title="${i18n("delete")}">×</button>
       </div>
       <div class="item-settings">
         <section class="item-subblock">
           <h4>${i18n("item")}</h4>
           <div class="item-grid two-cols">
-            <label>G_ClassName<input data-key="G_ClassName" type="text" value="${escapeAttribute(item.G_ClassName)}" data-classname-field data-tooltip-key="itemClassname"></label>
-            <label>G_Chance<input data-key="G_Chance" type="number" min="0" max="100" step="1" value="${escapeAttribute(item.G_Chance)}" data-tooltip-key="itemChance"></label>
+            <label>ClassName<input data-key="ClassName" type="text" value="${escapeAttribute(item.ClassName)}" data-classname-field data-tooltip-key="itemClassname"></label>
+            <label>Chance<input data-key="Chance" type="number" min="-1" max="100" step="1" value="${escapeAttribute(item.Chance)}" data-tooltip-key="itemChance"></label>
           </div>
         </section>
         <section class="item-subblock">
           <h4>${i18n("quantityHealth")}</h4>
           <div class="item-grid">
-            <label>G_QuantityMinMax min<input data-pair="G_QuantityMinMax" data-index="0" type="number" step="1" value="${escapeAttribute(item.G_QuantityMinMax[0])}" data-tooltip-key="itemQuantityMin"></label>
-            <label>G_QuantityMinMax max<input data-pair="G_QuantityMinMax" data-index="1" type="number" step="1" value="${escapeAttribute(item.G_QuantityMinMax[1])}" data-tooltip-key="itemQuantityMax"></label>
-            <label>G_GlobalHealthMinMax min${createHealthSelect("G_GlobalHealthMinMax", 0, item.G_GlobalHealthMinMax[0], "itemHealthMin")}</label>
-            <label>G_GlobalHealthMinMax max${createHealthSelect("G_GlobalHealthMinMax", 1, item.G_GlobalHealthMinMax[1], "itemHealthMax")}</label>
+            <label>QuantityMinMax min<input data-pair="QuantityMinMax" data-index="0" type="number" min="-1" step="1" value="${escapeAttribute(quantity[0])}" data-tooltip-key="itemQuantityMin"></label>
+            <label>QuantityMinMax max<input data-pair="QuantityMinMax" data-index="1" type="number" min="-1" step="1" value="${escapeAttribute(quantity[1])}" data-tooltip-key="itemQuantityMax"></label>
+            <label>HealthStateMinMax min${createHealthSelect("HealthStateMinMax", 0, health[0], "itemHealthMin")}</label>
+            <label>HealthStateMinMax max${createHealthSelect("HealthStateMinMax", 1, health[1], "itemHealthMax")}</label>
           </div>
         </section>
       </div>
     `;
 
     card.querySelector(".remove").addEventListener("click", () => {
-      group.G_Items.splice(index, 1);
+      items.splice(index, 1);
       render();
     });
 
@@ -168,15 +191,30 @@ function renderItems(group) {
       input.addEventListener("input", () => {
         if (input.dataset.key) {
           item[input.dataset.key] = input.type === "number" ? numberOr(input.value, 0) : input.value;
+          if (input.dataset.key === "ClassName") card.querySelector("h3").textContent = item.ClassName || i18n("itemNumber", { number: index + 1 });
         } else if (input.dataset.pair) {
           updatePairValue(item, input.dataset.pair, Number(input.dataset.index), numberOr(input.value, 0));
+          card.querySelectorAll(`[data-pair="${input.dataset.pair}"]`).forEach((field) => {
+            field.value = itemPair(item[input.dataset.pair])[Number(field.dataset.index)];
+          });
         }
         renderGroups();
         renderPreview();
       });
     });
 
-    itemList.append(card);
+    for (const key of ["Attachments", "Cargo"]) {
+      const section = document.createElement("section");
+      section.className = "item-subblock";
+      section.innerHTML = `<div class="panel-head"><h4 data-tooltip-key="${key}">${key}</h4><button class="small-button" type="button">${i18n("addItem")}</button></div><div class="item-list"></div>`;
+      section.querySelector("button").addEventListener("click", () => {
+        item[key].push(createItem());
+        render();
+      });
+      renderItemArray(item[key], section.querySelector(".item-list"));
+      card.querySelector(".item-settings").append(section);
+    }
+    container.append(card);
   });
 }
 
@@ -196,13 +234,14 @@ function cleanConfig(source) {
 }
 
 function cleanItem(item) {
-  const result = {
-    G_ClassName: item.G_ClassName
+  return {
+    ClassName: item.ClassName,
+    Chance: item.Chance,
+    QuantityMinMax: item.QuantityMinMax,
+    HealthStateMinMax: item.HealthStateMinMax,
+    Attachments: item.Attachments.map(cleanItem),
+    Cargo: item.Cargo.map(cleanItem)
   };
-  if (hasUsefulPair(item.G_QuantityMinMax) && !item.G_QuantityMinMax.includes(-1)) result.G_QuantityMinMax = item.G_QuantityMinMax;
-  if (hasUsefulPair(item.G_GlobalHealthMinMax) && !item.G_GlobalHealthMinMax.includes(-1)) result.G_GlobalHealthMinMax = item.G_GlobalHealthMinMax;
-  if (item.G_Chance !== -1) result.G_Chance = item.G_Chance;
-  return result;
 }
 
 function createHealthSelect(pairName, index, value, tooltipKey) {
@@ -218,11 +257,11 @@ function createHealthSelect(pairName, index, value, tooltipKey) {
 }
 
 function updatePairValue(item, pairName, index, value) {
-  item[pairName][index] = value;
-  if (pairName === "G_GlobalHealthMinMax" && value === -1) {
-    item[pairName] = [-1, -1];
-    render();
-  }
+  const pair = itemPair(item[pairName]);
+  pair[index] = value;
+  if (value === -1) pair[0] = pair[1] = -1;
+  else if (pair[1 - index] === -1) pair[1 - index] = value;
+  item[pairName] = pairString(pair);
 }
 
 function hasUsefulPair(pair) {
